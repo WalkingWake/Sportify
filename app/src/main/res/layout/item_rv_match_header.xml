@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLeagues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUpcoming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/upcoming"
+        android:textColor="@color/content"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvLeagues" />
+
+    <View
+        android:id="@+id/vUpcomingHighlight"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="@id/tvUpcoming"
+        app:layout_constraintStart_toStartOf="@id/tvUpcoming"
+        app:layout_constraintTop_toBottomOf="@id/tvUpcoming" />
+
+    <TextView
+        android:id="@+id/tvPastMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/past_matches"
+        android:textColor="@color/secondary_content"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tvUpcoming"
+        app:layout_constraintTop_toBottomOf="@id/rvLeagues" />
+
+    <View
+        android:id="@+id/vPastMatchesHighlight"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="@id/tvPastMatches"
+        app:layout_constraintStart_toStartOf="@id/tvPastMatches"
+        app:layout_constraintTop_toBottomOf="@id/tvPastMatches" />
+</androidx.constraintlayout.widget.ConstraintLayout>

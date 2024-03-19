@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    tools:ignore="ContentDescription">
+
+    <TextView
+        android:id="@+id/tvNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tab_news_title"
+        android:textColor="@color/content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivIconForwardNews"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvNews"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNews"
+        app:srcCompat="@drawable/icon_arrow_forward"
+        app:tint="@color/primary" />
+
+    <TextView
+        android:id="@+id/tvViewAllNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_all"
+        android:textColor="@color/primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tvNews"
+        app:layout_constraintEnd_toStartOf="@id/ivIconForwardNews"
+        app:layout_constraintTop_toTopOf="@id/tvNews" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpNews"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvNews" />
+
+    <dev.ptit.ui.custom.indicator.Indicator
+        android:id="@+id/indicatorNews"
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:layout_marginTop="8dp"
+        app:activeColor="@color/primary"
+        app:inactiveColor="#D6D5D5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vpNews" />
+
+    <TextView
+        android:id="@+id/tvAllLeagues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/all_leagues"
+        android:textColor="@color/content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/indicatorNews" />
+
+    <ImageView
+        android:id="@+id/ivIconForwardLeagues"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvAllLeagues"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvAllLeagues"
+        app:srcCompat="@drawable/icon_arrow_forward"
+        app:tint="@color/primary" />
+
+    <TextView
+        android:id="@+id/tvViewAllLeagues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_all"
+        android:textColor="@color/primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tvAllLeagues"
+        app:layout_constraintEnd_toStartOf="@id/ivIconForwardLeagues"
+        app:layout_constraintTop_toTopOf="@id/tvAllLeagues" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAllLeagues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tvAllLeagues" />
+
+    <TextView
+        android:id="@+id/tvMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/tab_matches_title"
+        android:textColor="@color/content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvAllLeagues" />
+
+    <ImageView
+        android:id="@+id/ivIconForwardMatches"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvMatches"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvMatches"
+        app:srcCompat="@drawable/icon_arrow_forward"
+        app:tint="@color/primary" />
+
+    <TextView
+        android:id="@+id/tvViewAllMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/view_all"
+        android:textColor="@color/primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tvMatches"
+        app:layout_constraintEnd_toStartOf="@id/ivIconForwardMatches"
+        app:layout_constraintTop_toTopOf="@id/tvMatches" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

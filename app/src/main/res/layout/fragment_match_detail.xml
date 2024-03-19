@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.screen.matches.MatchDetailFragment"
+    tools:ignore="ContentDescription, HardcodedText">
+
+    <ImageView
+        android:id="@+id/ivIconBack"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_arrow_back"
+        app:tint="@color/content" />
+
+
+    <TextView
+        android:id="@+id/tvBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/back"
+        android:textColor="@color/content"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivIconBack"
+        app:layout_constraintStart_toEndOf="@id/ivIconBack"
+        app:layout_constraintTop_toTopOf="@id/ivIconBack" />
+
+    <ImageView
+        android:id="@+id/ivClub1Image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/chelsea"
+        app:layout_constraintEnd_toEndOf="@id/tvClub1Name"
+        app:layout_constraintStart_toStartOf="@id/tvClub1Name"
+        app:layout_constraintTop_toBottomOf="@id/ivIconBack" />
+
+    <TextView
+        android:id="@+id/tvClub1Name"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:text="CHELSEA"
+        android:textAlignment="center"
+        android:textColor="@color/content"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivClub1Image" />
+
+    <TextView
+        android:id="@+id/tvMatchScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3 - 4"
+        android:textColor="@color/content"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/tvMatchTime"
+        app:layout_constraintEnd_toStartOf="@id/tvClub2Name"
+        app:layout_constraintStart_toEndOf="@id/tvClub1Name"
+        app:layout_constraintTop_toTopOf="@id/ivClub1Image"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tvMatchTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="20:00 • 18 Dec 2022"
+        android:textColor="@color/content"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/tvMatchStatus"
+        app:layout_constraintEnd_toStartOf="@id/tvClub2Name"
+        app:layout_constraintStart_toEndOf="@id/tvClub1Name"
+        app:layout_constraintTop_toBottomOf="@id/tvMatchScore" />
+
+    <TextView
+        android:id="@+id/tvMatchStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Full Time"
+        android:textColor="@color/content"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvClub1Name"
+        app:layout_constraintEnd_toStartOf="@id/tvClub2Name"
+        app:layout_constraintStart_toEndOf="@id/tvClub1Name"
+        app:layout_constraintTop_toBottomOf="@id/tvMatchTime" />
+
+    <ImageView
+        android:id="@+id/ivClub2Image"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/mu"
+        app:layout_constraintEnd_toEndOf="@id/tvClub2Name"
+        app:layout_constraintStart_toStartOf="@id/tvClub2Name"
+        app:layout_constraintTop_toBottomOf="@id/ivIconBack" />
+
+    <TextView
+        android:id="@+id/tvClub2Name"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="marquee"
+        android:maxLines="1"
+        android:text="Man United"
+        android:textAlignment="center"
+        android:textColor="@color/content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivClub1Image" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlMatchDetails"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/tvClub1Name"
+        app:tabIndicatorColor="@color/primary"
+        app:tabSelectedTextColor="@color/content"
+        app:tabTextAppearance="@style/CustomTabItem"
+        app:tabTextColor="#5B5B5B">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timeline" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stats" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lineups" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="News" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comment" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpMatchDetails"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlMatchDetails" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

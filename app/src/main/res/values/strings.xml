@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name" translatable="false">Sportify</string>
+
+    <string name="home">Home</string>
+    <string name="news">News</string>
+    <string name="matches">Matches</string>
+    <string name="settings">Settings</string>
+    <string name="back">Back</string>
+
+    <string name="tab_home_title">SPORTIFY</string>
+    <string name="tab_news_title">NEWS</string>
+    <string name="tab_matches_title">MATCHES</string>
+    <string name="tab_settings_title">SETTINGS</string>
+
+    <string name="team_sport_or_match">Team, Sport or Match</string>
+    <string name="view_all">View All</string>
+    <string name="highlights">Highlights</string>
+    <string name="all_leagues">ALL LEAGUES</string>
+
+    <string name="read_more">READ MORE</string>
+
+    <string name="upcoming">Upcoming</string>
+    <string name="past_matches">Past Matches</string>
+    <string name="timeline">Timeline</string>
+    <string name="lineups">Lineups</string>
+    <string name="stats">Stats</string>
+    <string name="comment">Comment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
