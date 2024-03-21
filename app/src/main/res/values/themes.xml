@@ -4,6 +4,10 @@
 
     </style>
 
+    <style name="SplashscreenTheme" parent="Theme.Sportify">
+        <item name="android:windowBackground">@drawable/background_splash_screen</item>
+    </style>
+
     <style name="Theme.Sportify" parent="Base.Theme.Sportify">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>

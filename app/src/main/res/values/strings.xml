@@ -1,6 +1,29 @@
 <resources>
     <string name="app_name" translatable="false">Sportify</string>
 
+    <string name="sign_in_description">Sign in with your Sportify ID</string>
+    <string name="create_account_description">Create a new Sportify ID</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="successful_registration">Create account successful. You\'ll be redirected to the login screen now.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="or">Or</string>
+    <string name="sign_up">Sign up</string>
+    <string name="create_account">Create Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="your_name">Your name</string>
+    <string name="your_email">Your email</string>
+    <string name="confirm_password">Confirm your Password</string>
+    <string name="password_warning">Password must be at least 8 characters long and include 1 capital letter.</string>
+    <string name="verify">Verify</string>
+    <string name="verify_description">Enter the code we sent you to email.</string>
+    <string name="enter_your_email">Enter your email to get OTP</string>
+    <string name="next">Next</string>
+    <string name="create_new_password">Create new password</string>
+    <string name="create">Create</string>
+    <string name="successful_reset_password">Reset password successful. You\'ll redirected to the login screen now.</string>
+
     <string name="home">Home</string>
     <string name="news">News</string>
     <string name="matches">Matches</string>
