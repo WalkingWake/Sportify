@@ -61,7 +61,10 @@ class MatchAdapter(
 
     inner class UpcomingMatchViewHolder(private val binding: ItemRvUpcomingMatchBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+        fun bind(position: Int) {
+            if(position% 4 == 0){
+                binding.tvMatchDate.visibility = View.VISIBLE
+            }
             binding.clItemMatch.setOnClickListener {
                 onMatchClick(matchList[adapterPosition - 1])
             }
@@ -70,7 +73,11 @@ class MatchAdapter(
 
     inner class PastMatchViewHolder(private val binding: ItemRvPastMatchBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+        fun bind(position: Int) {
+
+            if(position% 4 == 0){
+                binding.tvMatchDate.visibility = View.VISIBLE
+            }
             binding.clItemMatch.setOnClickListener {
                 onMatchClick(matchList[adapterPosition - 1])
             }
@@ -119,8 +126,8 @@ class MatchAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MatchHeaderViewHolder -> holder.bind()
-            is UpcomingMatchViewHolder -> holder.bind()
-            is PastMatchViewHolder -> holder.bind()
+            is UpcomingMatchViewHolder -> holder.bind(position - 1)
+            is PastMatchViewHolder -> holder.bind(position - 1)
         }
     }
 

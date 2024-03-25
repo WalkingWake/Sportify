@@ -1,6 +1,338 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvClub1ShotsOnTarget"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvShotsOnTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/shots_on_target"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2ShotsOnTarget"
+            app:layout_constraintStart_toEndOf="@id/tvClub1ShotsOnTarget"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvClub2ShotsOnTarget"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvClub1Possession"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="63%"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1ShotsOnTarget" />
+
+        <TextView
+            android:id="@+id/tvPossession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/possession"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2Possession"
+            app:layout_constraintStart_toEndOf="@id/tvClub1Possession"
+            app:layout_constraintTop_toBottomOf="@id/tvShotsOnTarget" />
+
+        <TextView
+            android:id="@+id/tvClub2Possession"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="37%"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2ShotsOnTarget" />
+
+        <TextView
+            android:id="@+id/tvClub1Passes"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="527"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Possession" />
+
+        <TextView
+            android:id="@+id/tvPasses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/passes"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2Passes"
+            app:layout_constraintStart_toEndOf="@id/tvClub1Passes"
+            app:layout_constraintTop_toBottomOf="@id/tvPossession" />
+
+        <TextView
+            android:id="@+id/tvClub2Passes"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="315"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2Possession" />
+
+        <TextView
+            android:id="@+id/tvClub1PassAccuracy"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="80%"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Passes" />
+
+        <TextView
+            android:id="@+id/tvPassAccuracy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/pass_accuracy"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2PassAccuracy"
+            app:layout_constraintStart_toEndOf="@id/tvClub1PassAccuracy"
+            app:layout_constraintTop_toBottomOf="@id/tvPasses" />
+
+        <TextView
+            android:id="@+id/tvClub2PassAccuracy"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="64%"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2Passes" />
+
+
+        <TextView
+            android:id="@+id/tvClub1Fouls"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1PassAccuracy" />
+
+        <TextView
+            android:id="@+id/tvFouls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/fouls"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2Fouls"
+            app:layout_constraintStart_toEndOf="@id/tvClub1Fouls"
+            app:layout_constraintTop_toBottomOf="@id/tvPassAccuracy" />
+
+        <TextView
+            android:id="@+id/tvClub2Fouls"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="12"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2PassAccuracy" />
+
+        <TextView
+            android:id="@+id/tvClub1YellowCards"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Fouls" />
+
+        <TextView
+            android:id="@+id/tvYellowCards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/yellow_cards"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2YellowCards"
+            app:layout_constraintStart_toEndOf="@id/tvClub1YellowCards"
+            app:layout_constraintTop_toBottomOf="@id/tvFouls" />
+
+        <TextView
+            android:id="@+id/tvClub2YellowCards"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2Fouls" />
+
+        <TextView
+            android:id="@+id/tvClub1RedCards"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1YellowCards" />
+
+        <TextView
+            android:id="@+id/tvRedCards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/red_cards"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2RedCards"
+            app:layout_constraintStart_toEndOf="@id/tvClub1RedCards"
+            app:layout_constraintTop_toBottomOf="@id/tvYellowCards" />
+
+        <TextView
+            android:id="@+id/tvClub2RedCards"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2YellowCards" />
+
+        <TextView
+            android:id="@+id/tvClub1Offsides"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1RedCards" />
+
+        <TextView
+            android:id="@+id/tvOffsides"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/offsides"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2Offsides"
+            app:layout_constraintStart_toEndOf="@id/tvClub1Offsides"
+            app:layout_constraintTop_toBottomOf="@id/tvRedCards" />
+
+        <TextView
+            android:id="@+id/tvClub2Offsides"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2RedCards" />
+
+        <TextView
+            android:id="@+id/tvClub1Corners"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Offsides" />
+
+        <TextView
+            android:id="@+id/tvCorners"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/corners"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2Corners"
+            app:layout_constraintStart_toEndOf="@id/tvClub1Corners"
+            app:layout_constraintTop_toBottomOf="@id/tvOffsides" />
+
+        <TextView
+            android:id="@+id/tvClub2Corners"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="6"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub2Offsides" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

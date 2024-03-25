@@ -88,7 +88,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Full Time"
+        android:text="@string/full_time"
         android:textColor="@color/content"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/tvClub1Name"
@@ -131,6 +131,10 @@
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@id/tvClub1Name"
         app:tabIndicatorColor="@color/primary"
+        app:tabPaddingBottom="0dp"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingTop="0dp"
         app:tabSelectedTextColor="@color/content"
         app:tabTextAppearance="@style/CustomTabItem"
         app:tabTextColor="#5B5B5B">
@@ -138,27 +142,27 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Timeline" />
+            android:text="@string/timeline" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stats" />
+            android:text="@string/stats" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lineups" />
+            android:text="@string/lineups" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="News" />
+            android:text="@string/news" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comment" />
+            android:text="@string/comment" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2

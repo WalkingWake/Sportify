@@ -6,7 +6,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.content.ContextCompat
 import dev.ptit.R
 
 class Indicator : View {

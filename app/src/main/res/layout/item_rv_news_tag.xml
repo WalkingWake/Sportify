@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingVertical="4dp"
-        android:text="Trending"
+        android:text="@string/trending"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
