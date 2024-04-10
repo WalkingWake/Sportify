@@ -5,20 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import dev.ptit.data.league.LeagueModel
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ptit.data.league.LeagueRepository
-import dev.ptit.data.match.MatchModel
 import dev.ptit.data.match.MatchRepository
-import dev.ptit.data.news.NewsModel
-import dev.ptit.data.news.NewsRepository
 import dev.ptit.databinding.FragmentHomeBinding
 import dev.ptit.ui.adapter.home.HomeAdapter
+import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val homeAdapter = HomeAdapter()
+    private val viewModel : HomeViewModel  by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +33,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvContent.adapter = HomeAdapter().apply {
+        binding.rvContent.adapter = homeAdapter.apply {
             setNewsList(
-                NewsRepository().getAllNews()
+                viewModel.getAllNews()
             )
             setLeagueList(
                 LeagueRepository().getAllLeagues()
@@ -41,6 +44,11 @@ class HomeFragment : Fragment() {
                 MatchRepository().getAllMatches()
             )
         }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewModel.getAllNews().collect{
+//                homeAdapter.setNewsList(it)
+//            }
+//        }
 
     }
 

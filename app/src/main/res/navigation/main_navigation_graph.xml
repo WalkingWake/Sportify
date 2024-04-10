@@ -40,7 +40,11 @@
         android:id="@+id/settingsFragment"
         android:name="dev.ptit.ui.screen.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="dev.ptit.ui.screen.news.NewsDetailsFragment"
@@ -51,5 +55,31 @@
         android:name="dev.ptit.ui.screen.matches.MatchDetailFragment"
         android:label="fragment_match_detail"
         tools:layout="@layout/fragment_match_detail" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="dev.ptit.ui.screen.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_myFavoriteFragment"
+            app:destination="@id/myFavoriteFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_clubFragment"
+            app:destination="@id/clubFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFavoriteFragment"
+        android:name="dev.ptit.ui.screen.favorite.MyFavoriteFragment"
+        android:label="fragment_my_favorite"
+        tools:layout="@layout/fragment_my_favorite" >
+        <action
+            android:id="@+id/action_myFavoriteFragment_to_clubFragment"
+            app:destination="@id/clubFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubFragment"
+        android:name="dev.ptit.ui.screen.favorite.ClubFragment"
+        android:label="fragment_club"
+        tools:layout="@layout/fragment_club" />
 
 </navigation>

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 
+    id 'com.google.gms.google-services'
 
     id 'com.google.dagger.hilt.android'
     id 'com.google.devtools.ksp'
@@ -12,7 +13,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "dev.ptit"
+        applicationId "dev.ptit.spotify"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -77,4 +78,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.5.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
+
+    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
+    implementation("com.google.firebase:firebase-database-ktx")
 }

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "969735710178",
+    "firebase_url": "https://sportify-4c4c5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "sportify-4c4c5",
+    "storage_bucket": "sportify-4c4c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969735710178:android:098e818cfe6cb92ce345bb",
+        "android_client_info": {
+          "package_name": "dev.ptit.spotify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2QDcDGtJ49p0RkbNp_MeHfOlkJ14I9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

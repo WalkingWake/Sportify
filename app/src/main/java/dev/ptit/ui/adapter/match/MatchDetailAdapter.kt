@@ -98,7 +98,7 @@ class MatchDetailAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind() {
 
             binding.rvNews.adapter = NewsRVAdapter {}.apply {
-                setList(NewsRepository().getAllNews())
+//                setList(NewsRepository().getAllNews())
             }
 
         }

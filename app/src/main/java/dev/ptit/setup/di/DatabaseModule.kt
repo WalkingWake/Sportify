@@ -15,6 +15,6 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideNewsRepository(): NewsRepository {
-        return NewsRepository()
+        return NewsRepository
     }
 }

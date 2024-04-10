@@ -13,7 +13,9 @@ class NewsVPAdapter : RecyclerView.Adapter<NewsVPAdapter.ViewHolder>() {
 
     inner class ViewHolder (private val binding : ItemVpNewsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(newsModel : NewsModel) {
-//            Glide.with(itemView.context).load(newsModel.image).into(binding.ivNews)
+            Glide.with(itemView.context).load(newsModel.image).into(binding.ivNews)
+            binding.tvNewsTitle.text = newsModel.title
+            binding.tvNewsDescription.text = newsModel.description
         }
     }
 

@@ -6,6 +6,7 @@ import dev.ptit.data.news.NewsModel
 import dev.ptit.data.news.NewsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.last
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,7 +22,8 @@ class NewsViewModel @Inject constructor(
     }
 
     fun getAllNews() : List<NewsModel> {
-        return newsRepository.getAllNews()
+//        return newsRepository.news.last()
+        return listOf()
     }
 
     fun getAllTags() : List<String> {
