@@ -1,5 +1,6 @@
 package dev.ptit.ui.adapter.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,8 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.vpNews.adapter = newsVPAdapter.apply {
                 setList(newsList)
             }
+
+            Log.d("HomeAdapter", "newsList: $newsList")
 
             binding.indicatorNews.setIndicatorNumber(newsList.size)
 

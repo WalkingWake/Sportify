@@ -34,9 +34,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvContent.adapter = homeAdapter.apply {
-            setNewsList(
-                viewModel.getAllNews()
-            )
+//            setNewsList(
+//                viewModel.getAllNews()
+//            )
             setLeagueList(
                 LeagueRepository().getAllLeagues()
             )
@@ -44,11 +44,11 @@ class HomeFragment : Fragment() {
                 MatchRepository().getAllMatches()
             )
         }
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.getAllNews().collect{
-//                homeAdapter.setNewsList(it)
-//            }
-//        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getAllNews().collect{
+                homeAdapter.setNewsList(it)
+            }
+        }
 
     }
 

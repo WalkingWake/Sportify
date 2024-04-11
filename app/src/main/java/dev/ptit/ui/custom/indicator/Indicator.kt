@@ -5,6 +5,7 @@ import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import dev.ptit.R
 
@@ -63,6 +64,7 @@ class Indicator : View {
 
     fun setIndicatorNumber(indicatorNumber: Int) {
         this.indicatorNumber = indicatorNumber
+        Log.d("Indicator", "indicatorNumber: $indicatorNumber")
         initView()
         invalidate()
     }

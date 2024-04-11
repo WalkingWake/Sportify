@@ -12,7 +12,7 @@ class HomeViewModel @Inject constructor(
     private val newsRepository: NewsRepository
 ) : ViewModel() {
 
-    fun getAllNews() : List<NewsModel> {
-        return newsRepository.news
+    fun getAllNews() : Flow<List<NewsModel>> {
+        return newsRepository.getAllNews()
     }
 }
