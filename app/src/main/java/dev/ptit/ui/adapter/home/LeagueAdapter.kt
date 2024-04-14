@@ -4,19 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import dev.ptit.data.league.LeagueModel
+import dev.ptit.data.league.LeagueEntity
 import dev.ptit.databinding.ItemRvLeagueBinding
 
 class LeagueAdapter : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
 
-    private var leagueList = listOf<LeagueModel>()
+    private var leagueList = listOf<LeagueEntity>()
 
     inner class ViewHolder(
         private val binding: ItemRvLeagueBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(leagueModel: LeagueModel) {
-//            Glide.with(itemView.context).load(leagueModel.logo).into(binding.ivLeague)
-            binding.tvLeague.text = leagueModel.name
+        fun bind(leagueEntity: LeagueEntity) {
+            Glide.with(itemView.context).load(leagueEntity.logo).into(binding.ivLeague)
+            binding.tvLeague.text = leagueEntity.name
         }
     }
 
@@ -39,7 +39,7 @@ class LeagueAdapter : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
         holder.bind(leagueList[position])
     }
 
-    fun setList(list: List<LeagueModel>) {
+    fun setList(list: List<LeagueEntity>) {
         this.leagueList = list
         notifyDataSetChanged()
     }

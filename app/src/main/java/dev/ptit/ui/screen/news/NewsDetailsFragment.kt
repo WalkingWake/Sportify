@@ -35,7 +35,7 @@ class NewsDetailsFragment : Fragment() {
             viewModel.selectedNews.collect{
                 binding.tvNewsDate.text = it.date
                 binding.tvNewsTitle.text = it.title
-                binding.tvNewsContent.text = it.description
+                binding.tvNewsContent.text = it.description.replace("\\n", "\n")
                 Glide.with(this@NewsDetailsFragment).load(it.image).into(binding.ivNewsImage)
             }
         }

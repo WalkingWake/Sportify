@@ -1,23 +1,24 @@
 package dev.ptit.ui.adapter.match
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ptit.R
-import dev.ptit.data.league.LeagueModel
+import dev.ptit.data.league.LeagueEntity
 import dev.ptit.data.match.MatchModel
 import dev.ptit.databinding.ItemRvMatchHeaderBinding
 import dev.ptit.databinding.ItemRvPastMatchBinding
 import dev.ptit.databinding.ItemRvUpcomingMatchBinding
 
 class MatchAdapter(
-    private val onLeagueClick: (Int) -> Unit,
+    private val onLeagueClick: (LeagueEntity) -> Unit,
     private val onMatchClick: (MatchModel) -> Unit,
     private val onUpcomingClick: (Boolean) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var leagueList = listOf<LeagueModel>()
+    private var leagueList = listOf<LeagueEntity>()
     private var isUpcomingState = true
 
     private var matchList = listOf<MatchModel>()
@@ -40,10 +41,9 @@ class MatchAdapter(
             }
 
             if (binding.rvLeagues.adapter == null) {
-                binding.rvLeagues.adapter = leagueAdapter.apply {
-                    setList(leagueList)
-                }
+                binding.rvLeagues.adapter = leagueAdapter
             }
+            leagueAdapter.setList(leagueList)
 
             if (isUpcomingState) {
                 binding.tvUpcoming.setTextColor(itemView.context.getColor(R.color.content))
@@ -144,7 +144,7 @@ class MatchAdapter(
         }
     }
 
-    fun setLeagueList(leagueList: List<LeagueModel>) {
+    fun setLeagueList(leagueList: List<LeagueEntity>) {
         this.leagueList = leagueList
         notifyDataSetChanged()
     }

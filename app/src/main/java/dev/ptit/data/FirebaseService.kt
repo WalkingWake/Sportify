@@ -5,12 +5,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import dev.ptit.data.league.LeagueEntity
+import dev.ptit.data.league.LeagueRepository
+import dev.ptit.data.leagueteammapping.LeagueTeamEntity
+import dev.ptit.data.leagueteammapping.LeagueTeamRepository
 import dev.ptit.data.news.NewsEntity
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagEntity
 import dev.ptit.data.newstagmapping.NewsTagRepository
 import dev.ptit.data.tag.TagEntity
 import dev.ptit.data.tag.TagRepository
+import dev.ptit.data.team.TeamEntity
+import dev.ptit.data.team.TeamRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -23,13 +29,19 @@ class FirebaseService(
     private val firebaseInstance: FirebaseDatabase,
     private val newsRepository: NewsRepository,
     private val tagRepository: TagRepository,
-    private val newsTagRepository: NewsTagRepository
+    private val newsTagRepository: NewsTagRepository,
+    private val leagueRepository: LeagueRepository,
+    private val teamRepository: TeamRepository,
+    private val leagueTeamRepository: LeagueTeamRepository
 ) {
 
     fun init() {
         getAllNews()
         getAllTags()
         getAllNewsTag()
+        getAllLeagues()
+        getAllTeams()
+        getAllLeagueTeams()
     }
 
     private fun <T> DatabaseReference.addValueEventListenerFlow(dataType: Class<T>): Flow<List<T>> =
@@ -72,6 +84,33 @@ class FirebaseService(
             firebaseInstance.getReference("news_tag")
                 .addValueEventListenerFlow(NewsTagEntity::class.java).collect { newsTags ->
                     newsTagRepository.insertNewsTags(newsTags)
+                }
+        }
+    }
+
+    private fun getAllLeagues() {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("leagues")
+                .addValueEventListenerFlow(LeagueEntity::class.java).collect { leagues ->
+                    leagueRepository.insertLeagues(leagues)
+                }
+        }
+    }
+
+    private fun getAllTeams() {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("teams")
+                .addValueEventListenerFlow(TeamEntity::class.java).collect { teams ->
+                    teamRepository.insertTeams(teams)
+                }
+        }
+    }
+
+    private fun getAllLeagueTeams() {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("league_team")
+                .addValueEventListenerFlow(LeagueTeamEntity::class.java).collect { leagueTeams ->
+                    leagueTeamRepository.insertLeagueTeams(leagueTeams)
                 }
         }
     }

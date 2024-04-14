@@ -36,7 +36,7 @@ class MatchesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         matchAdapter = MatchAdapter({
-            viewModel.onLeagueClick(it)
+            viewModel.onLeagueClick(it.id)
         }, {
             findNavController().navigate(R.id.action_matchesFragment_to_matchDetailFragment)
         }, {
@@ -54,8 +54,13 @@ class MatchesFragment : Fragment() {
             }
         }
 
-        binding.rvContent.adapter = matchAdapter?.apply {
-            setLeagueList(LeagueRepository().getAllLeagues())
+        binding.rvContent.adapter = matchAdapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.leagues.collect {
+                Log.d("MatchesFragment", "onViewCreated: $it")
+                matchAdapter?.setLeagueList(it)
+            }
         }
     }
 

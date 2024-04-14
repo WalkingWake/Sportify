@@ -58,13 +58,14 @@
                 android:textColor="@color/content"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/ivNewsImage"/>
+                app:layout_constraintTop_toBottomOf="@id/ivNewsImage" />
 
             <TextView
                 android:id="@+id/tvNewsDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
                 android:text="Wed 12/16 · 8:30 PM"
                 android:textColor="@color/content"
                 android:textSize="12sp"
@@ -75,16 +76,17 @@
                 android:id="@+id/tvNewsContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
                 android:text="We explored the tough decisions regarding the selection of Western Conference backcourt players looming later this month once the league officially opens voting for the 2023 NBA All-Star Game.\n\nSo, naturally, it’s time to turn attention to the Eastern Conference, which added a couple of 2022 All-Star guards from the West in Donovan Mitchell and Dejounte Murray to an already deep pool that features a total of 17 All-Star nods between two players — James Harden and Kyrie Irving — that aren’t even locks to make this year’s squad."
                 android:textColor="@color/content"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvNewsDate" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

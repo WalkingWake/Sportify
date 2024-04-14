@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import dev.ptit.data.league.LeagueModel
+import dev.ptit.data.league.LeagueEntity
 import dev.ptit.data.match.MatchModel
 import dev.ptit.data.news.NewsEntity
 import dev.ptit.databinding.ItemRvHomeHeaderBinding
@@ -14,7 +14,7 @@ import dev.ptit.databinding.ItemRvUpcomingMatchBinding
 
 class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var leagueList = listOf<LeagueModel>()
+    private var leagueList = listOf<LeagueEntity>()
     private var newsList = listOf<NewsEntity>()
     private var matchList = listOf<MatchModel>()
 
@@ -99,7 +99,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    fun setLeagueList(list: List<LeagueModel>) {
+    fun setLeagueList(list: List<LeagueEntity>) {
         this.leagueList = list
         notifyDataSetChanged()
     }

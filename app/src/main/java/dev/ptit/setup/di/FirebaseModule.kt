@@ -6,9 +6,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.ptit.data.FirebaseService
+import dev.ptit.data.league.LeagueRepository
+import dev.ptit.data.leagueteammapping.LeagueTeamEntity
+import dev.ptit.data.leagueteammapping.LeagueTeamRepository
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagRepository
 import dev.ptit.data.tag.TagRepository
+import dev.ptit.data.team.TeamRepository
 import javax.inject.Singleton
 
 
@@ -28,8 +32,19 @@ object FirebaseModule {
         firebaseDatabase: FirebaseDatabase,
         newsRepository: NewsRepository,
         tagRepository: TagRepository,
-        newsTagRepository: NewsTagRepository
+        newsTagRepository: NewsTagRepository,
+        leagueRepository: LeagueRepository,
+        teamRepository: TeamRepository,
+        leagueTeamRepository: LeagueTeamRepository
     ): FirebaseService {
-        return FirebaseService(firebaseDatabase, newsRepository, tagRepository, newsTagRepository)
+        return FirebaseService(
+            firebaseDatabase,
+            newsRepository,
+            tagRepository,
+            newsTagRepository,
+            leagueRepository,
+            teamRepository,
+            leagueTeamRepository
+        )
     }
 }

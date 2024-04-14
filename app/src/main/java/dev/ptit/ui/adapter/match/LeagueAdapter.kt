@@ -5,31 +5,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.ptit.R
-import dev.ptit.data.league.LeagueModel
+import dev.ptit.data.league.LeagueEntity
 import dev.ptit.databinding.ItemRvLeagueBinding
 
 class LeagueAdapter(
-    private val onLeagueClick: (Int) -> Unit
+    private val onLeagueClick: (LeagueEntity) -> Unit
 ) : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
 
-    private var leagueList = listOf<LeagueModel>()
-    private var selectedLeague = 0
+    private var leagueList = listOf<LeagueEntity>()
+    private var selectedLeague : LeagueEntity? = null
 
     inner class ViewHolder(
         private val binding: ItemRvLeagueBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(leagueModel: LeagueModel) {
+        fun bind(leagueEntity: LeagueEntity) {
 
-            if (selectedLeague == leagueModel.id) {
+            if (selectedLeague == leagueEntity) {
                 binding.clLeague.setBackgroundColor(itemView.context.getColor(R.color.primary))
             } else {
                 binding.clLeague.setBackgroundColor(itemView.context.getColor(R.color.transparent))
             }
             binding.clLeague.setOnClickListener {
-                onLeagueClick(leagueModel.id)
-                setSelectedLeague(leagueModel.id)
+                onLeagueClick(leagueEntity)
             }
-            binding.tvLeague.text = leagueModel.name
+            binding.tvLeague.text = leagueEntity.name
+            Glide.with(itemView.context).load(leagueEntity.logo).into(binding.ivLeague)
         }
     }
 
@@ -52,12 +52,12 @@ class LeagueAdapter(
         holder.bind(leagueList[position])
     }
 
-    fun setList(list: List<LeagueModel>) {
+    fun setList(list: List<LeagueEntity>) {
         this.leagueList = list
         notifyDataSetChanged()
     }
 
-    fun setSelectedLeague(leagueId: Int) {
+    fun setSelectedLeague(leagueId: LeagueEntity?) {
         this.selectedLeague = leagueId
         notifyDataSetChanged()
     }

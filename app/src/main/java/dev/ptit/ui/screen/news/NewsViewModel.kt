@@ -59,15 +59,9 @@ class NewsViewModel @Inject constructor(
                 newsTags.update { newsTagList }
             }
         }
-
-        viewModelScope.launch {
-            selectedTag.collect {
-                updateUIState()
-            }
-        }
     }
 
-    private fun updateUIState(){
+    private fun updateUIState() {
         if (selectedTag.value == tagRepository.getTagAll()) {
             _news.update {
                 allNews.value
@@ -76,27 +70,26 @@ class NewsViewModel @Inject constructor(
             _news.update {
                 getNewsByTag(_tags.value.first {
                     it == selectedTag.value
-                })
+                }.remoteId)
             }
         }
     }
 
     fun setSelectedTag(tag: TagEntity) {
         _selectedTag.value = tag
+        updateUIState()
     }
 
     fun setSelectedNews(news: NewsEntity) {
         _selectedNews.value = news
     }
 
-    private fun getNewsByTag(tag: TagEntity): List<NewsEntity> {
+    private fun getNewsByTag(tagId: Int): List<NewsEntity> {
         val newsList = mutableListOf<NewsEntity>()
 
         newsTags.value.forEach { newsTag ->
-            if (newsTag.tagId == tag.remoteId) {
-                val news: NewsEntity? = allNews.value.firstOrNull {
-                    it.remoteId == newsTag.newsId
-                }
+            if (newsTag.tagId == tagId) {
+                val news = allNews.value.find { it.remoteId == newsTag.newsId }
                 news?.let {
                     newsList.add(it)
                 }

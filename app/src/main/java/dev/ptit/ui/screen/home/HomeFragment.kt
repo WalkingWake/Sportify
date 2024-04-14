@@ -39,9 +39,9 @@ class HomeFragment : Fragment() {
 //            setNewsList(
 //                viewModel.getAllNews()
 //            )
-            setLeagueList(
-                LeagueRepository().getAllLeagues()
-            )
+//            setLeagueList(
+//                LeagueRepository().getAllLeagues()
+//            )
             setMatchList(
                 MatchRepository().getAllMatches()
             )
@@ -49,6 +49,12 @@ class HomeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.news.collect{
                 homeAdapter.setNewsList(it.subList(0, min(10, it.size)))
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.leagues.collect{
+                homeAdapter.setLeagueList(it)
             }
         }
 
