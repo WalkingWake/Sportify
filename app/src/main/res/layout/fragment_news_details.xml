@@ -25,16 +25,40 @@
                 app:layout_constraintDimensionRatio="H, 5:4"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/ivIconBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="48dp"
+                android:padding="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_arrow_back" />
+
+
+            <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivIconBack"
+                app:layout_constraintStart_toEndOf="@id/ivIconBack"
+                app:layout_constraintTop_toTopOf="@id/ivIconBack" />
+
             <TextView
                 android:id="@+id/tvNewsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="PHONENIX SUNS VS BOSTON CELTICS"
-                android:textColor="@color/white"
-                android:textSize="32sp"
+                android:textColor="@color/content"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/ivNewsImage" />
+                app:layout_constraintTop_toBottomOf="@id/ivNewsImage"/>
 
             <TextView
                 android:id="@+id/tvNewsDate"
@@ -45,7 +69,7 @@
                 android:textColor="@color/content"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivNewsImage" />
+                app:layout_constraintTop_toBottomOf="@id/tvNewsTitle" />
 
             <TextView
                 android:id="@+id/tvNewsContent"
@@ -61,28 +85,6 @@
     </ScrollView>
 
 
-    <ImageView
-        android:id="@+id/ivIconBack"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
-        android:padding="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_arrow_back" />
 
-
-    <TextView
-        android:id="@+id/tvBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:text="@string/back"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/ivIconBack"
-        app:layout_constraintStart_toEndOf="@id/ivIconBack"
-        app:layout_constraintTop_toTopOf="@id/ivIconBack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

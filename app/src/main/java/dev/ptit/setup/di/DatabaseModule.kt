@@ -1,10 +1,19 @@
 package dev.ptit.setup.di
 
+import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dev.ptit.data.AppDatabase
+import dev.ptit.data.news.NewsDao
 import dev.ptit.data.news.NewsRepository
+import dev.ptit.data.newstagmapping.NewsTagDao
+import dev.ptit.data.newstagmapping.NewsTagRepository
+import dev.ptit.data.tag.TagDao
+import dev.ptit.data.tag.TagRepository
 import javax.inject.Singleton
 
 
@@ -14,7 +23,41 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(): NewsRepository {
-        return NewsRepository
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "app_database"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(database: AppDatabase) = database.newsDao()
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(newsDao: NewsDao): NewsRepository {
+        return NewsRepository(newsDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTagDao(database: AppDatabase) = database.tagDao()
+
+    @Provides
+    @Singleton
+    fun provideTagRepository(tagDao: TagDao): TagRepository {
+        return TagRepository(tagDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsTagDao(database: AppDatabase) = database.newsTagDao()
+
+    @Provides
+    @Singleton
+    fun provideNewsTagRepository(newsTagDao: NewsTagDao): NewsTagRepository {
+        return NewsTagRepository(newsTagDao)
     }
 }

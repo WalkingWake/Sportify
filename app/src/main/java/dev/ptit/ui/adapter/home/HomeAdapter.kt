@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import dev.ptit.data.league.LeagueModel
 import dev.ptit.data.match.MatchModel
-import dev.ptit.data.news.NewsModel
+import dev.ptit.data.news.NewsEntity
 import dev.ptit.databinding.ItemRvHomeHeaderBinding
 import dev.ptit.databinding.ItemRvUpcomingMatchBinding
 
 class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var leagueList = listOf<LeagueModel>()
-    private var newsList = listOf<NewsModel>()
+    private var newsList = listOf<NewsEntity>()
     private var matchList = listOf<MatchModel>()
 
     inner class HomeHeaderViewHolder(private val binding: ItemRvHomeHeaderBinding) :
@@ -36,7 +36,9 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             Log.d("HomeAdapter", "newsList: $newsList")
 
-            binding.indicatorNews.setIndicatorNumber(newsList.size)
+            if (newsList.isNotEmpty()) {
+                binding.indicatorNews.setIndicatorNumber(newsList.size)
+            }
 
             binding.vpNews.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -102,7 +104,7 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setNewsList(list: List<NewsModel>) {
+    fun setNewsList(list: List<NewsEntity>) {
         this.newsList = list
         notifyDataSetChanged()
     }

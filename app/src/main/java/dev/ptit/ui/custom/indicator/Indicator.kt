@@ -15,7 +15,7 @@ class Indicator : View {
     private val indicatorPaintList = mutableListOf<Paint>()
     private var activeColor = context.getColor(android.R.color.black)
     private var inactiveColor = context.getColor(android.R.color.white)
-    private var indicatorNumber = 3
+    private var indicatorNumber = 0
 
     constructor(context: Context) : super(context) {
         initView()
@@ -64,8 +64,8 @@ class Indicator : View {
 
     fun setIndicatorNumber(indicatorNumber: Int) {
         this.indicatorNumber = indicatorNumber
-        Log.d("Indicator", "indicatorNumber: $indicatorNumber")
         initView()
+        requestLayout()
         invalidate()
     }
 
@@ -92,7 +92,6 @@ class Indicator : View {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)

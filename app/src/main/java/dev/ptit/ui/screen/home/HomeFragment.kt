@@ -1,6 +1,7 @@
 package dev.ptit.ui.screen.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import dev.ptit.data.match.MatchRepository
 import dev.ptit.databinding.FragmentHomeBinding
 import dev.ptit.ui.adapter.home.HomeAdapter
 import kotlinx.coroutines.launch
+import kotlin.math.min
 
 
 @AndroidEntryPoint
@@ -45,8 +47,8 @@ class HomeFragment : Fragment() {
             )
         }
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getAllNews().collect{
-                homeAdapter.setNewsList(it)
+            viewModel.news.collect{
+                homeAdapter.setNewsList(it.subList(0, min(10, it.size)))
             }
         }
 

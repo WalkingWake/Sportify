@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import dev.ptit.data.news.NewsModel
+import dev.ptit.data.news.NewsEntity
 import dev.ptit.databinding.ItemVpNewsBinding
 
 class NewsVPAdapter : RecyclerView.Adapter<NewsVPAdapter.ViewHolder>() {
 
-    private var newsList = listOf<NewsModel>()
+    private var newsList = listOf<NewsEntity>()
 
     inner class ViewHolder (private val binding : ItemVpNewsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(newsModel : NewsModel) {
-            Glide.with(itemView.context).load(newsModel.image).into(binding.ivNews)
-            binding.tvNewsTitle.text = newsModel.title
-            binding.tvNewsDescription.text = newsModel.description
+        fun bind(newsEntity : NewsEntity) {
+            Glide.with(itemView.context).load(newsEntity.image).into(binding.ivNews)
+            binding.tvNewsTitle.text = newsEntity.title
+            binding.tvNewsDescription.text = newsEntity.description
         }
     }
 
@@ -37,7 +37,7 @@ class NewsVPAdapter : RecyclerView.Adapter<NewsVPAdapter.ViewHolder>() {
         holder.bind(newsList[position])
     }
 
-    fun setList(list: List<NewsModel>) {
+    fun setList(list: List<NewsEntity>) {
         this.newsList = list
         notifyDataSetChanged()
     }
