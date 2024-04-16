@@ -6,15 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ptit.R
 import dev.ptit.databinding.FragmentSignInBinding
 import dev.ptit.ui.MainActivity
 
+
+@AndroidEntryPoint
 class SignInFragment : Fragment() {
 
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +37,18 @@ class SignInFragment : Fragment() {
         }
 
         binding.tvSignInButton.setOnClickListener {
-            activity?.apply {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+            if (viewModel.login(
+                    binding.etEmail.text.toString(),
+                    binding.etPassword.text.toString()
+                )
+            ) {
+                binding.tvError.visibility = View.INVISIBLE
+                activity?.apply {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+            } else {
+                binding.tvError.visibility = View.VISIBLE
             }
         }
 

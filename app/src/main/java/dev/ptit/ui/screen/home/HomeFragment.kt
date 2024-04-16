@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import dev.ptit.R
 import dev.ptit.databinding.FragmentHomeBinding
 import dev.ptit.setup.extension.formattedDateToLong
 import dev.ptit.ui.adapter.home.HomeAdapter
@@ -21,7 +23,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeAdapter = HomeAdapter()
+    private var homeAdapter: HomeAdapter? = null
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,32 +36,48 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvContent.adapter = homeAdapter.apply {
-//            setNewsList(
-//                viewModel.getAllNews()
-//            )
-//            setLeagueList(
-//                LeagueRepository().getAllLeagues()
-//            )
-//            setMatchList(
-//                MatchRepository().getAllMatches()
-//            )
-        }
+
+        setUpView()
+        setUpListener()
+        setUpData()
+
+
+    }
+
+    private fun setUpView() {
+        homeAdapter = HomeAdapter(
+            onViewAllNewsClick = {
+                findNavController().navigate(R.id.action_homeFragment_to_newsFragment)
+            },
+            onViewAllLeaguesClick = {
+                Log.d("HomeFragment", "onViewAllLeaguesClick")
+            },
+            onViewAllMatchesClick = {
+                findNavController().navigate(R.id.action_homeFragment_to_matchesFragment)
+            }
+        )
+        binding.rvContent.adapter = homeAdapter
+    }
+
+    private fun setUpListener() {
+    }
+
+    private fun setUpData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.news.collect {
-                homeAdapter.setNewsList(it.subList(0, min(10, it.size)))
+                homeAdapter?.setNewsList(it.subList(0, min(10, it.size)))
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.leagues.collect {
-                homeAdapter.setLeagueList(it)
+                homeAdapter?.setLeagueList(it)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.matches.collect { list ->
-                homeAdapter.setMatchList(
+                homeAdapter?.setMatchList(
                     list
                         .filter { match ->
                             val currentTime = System.currentTimeMillis()
@@ -75,11 +93,9 @@ class HomeFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.teams.collect {
-                homeAdapter.setTeamList(it)
+                homeAdapter?.setTeamList(it)
             }
         }
-
-
     }
 
     override fun onDestroyView() {

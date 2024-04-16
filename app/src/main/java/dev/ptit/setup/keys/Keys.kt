@@ -6,6 +6,8 @@ object Keys {
 
     const val IS_FIRST_TIME = "is_first_time"
 
+    const val USER_ID = "user_id"
+
     const val NAVIGATE_FROM = "navigate_from"
 
     const val FORGOT_PASSWORD_FRAGMENT = "forgot_password_fragment"

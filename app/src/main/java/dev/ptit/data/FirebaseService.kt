@@ -19,6 +19,7 @@ import dev.ptit.data.tag.TagEntity
 import dev.ptit.data.tag.TagRepository
 import dev.ptit.data.team.TeamEntity
 import dev.ptit.data.team.TeamRepository
+import dev.ptit.setup.extension.addValueEventListenerFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -38,7 +39,7 @@ class FirebaseService(
     private val matchRepository: MatchRepository
 ) {
 
-    fun init() {
+    init {
         getAllNews()
         getAllTags()
         getAllNewsTag()
@@ -47,22 +48,6 @@ class FirebaseService(
         getAllLeagueTeams()
         getAllMatches()
     }
-
-    private fun <T> DatabaseReference.addValueEventListenerFlow(dataType: Class<T>): Flow<List<T>> =
-        callbackFlow {
-            val listener = object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    val list = dataSnapshot.children.mapNotNull { it.getValue(dataType) }
-                    trySend(list)
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    cancel()
-                }
-            }
-            addValueEventListener(listener)
-            awaitClose { removeEventListener(listener) }
-        }
 
 
     private fun getAllNews() {

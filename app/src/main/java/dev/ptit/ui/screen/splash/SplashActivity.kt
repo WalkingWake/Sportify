@@ -18,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
     lateinit var lazyPref: LazyPref
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (lazyPref.get(Keys.IS_FIRST_TIME, true)) {
+        if (lazyPref.get(Keys.USER_ID, -1) == -1) {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         } else {

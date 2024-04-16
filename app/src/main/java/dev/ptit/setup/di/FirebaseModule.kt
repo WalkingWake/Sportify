@@ -14,6 +14,7 @@ import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagRepository
 import dev.ptit.data.tag.TagRepository
 import dev.ptit.data.team.TeamRepository
+import dev.ptit.data.user.UserRepository
 import javax.inject.Singleton
 
 
@@ -25,6 +26,12 @@ object FirebaseModule {
     @Singleton
     fun provideFirebaseDatabase(): FirebaseDatabase {
         return FirebaseDatabase.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(firebaseDatabase: FirebaseDatabase): UserRepository {
+        return UserRepository(firebaseDatabase)
     }
 
     @Provides

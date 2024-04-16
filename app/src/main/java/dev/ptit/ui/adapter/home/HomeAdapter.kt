@@ -17,7 +17,11 @@ import dev.ptit.setup.extension.formattedDateToLong
 import dev.ptit.setup.extension.longToFormattedDate
 import dev.ptit.setup.utils.Utils
 
-class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeAdapter(
+    private val onViewAllNewsClick : () -> Unit,
+    private val onViewAllLeaguesClick : () -> Unit,
+    private val onViewAllMatchesClick : () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var leagueList = listOf<LeagueEntity>()
     private var newsList = listOf<NewsEntity>()
@@ -32,6 +36,18 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind() {
 
+            binding.tvViewAllNews.setOnClickListener {
+                onViewAllNewsClick()
+            }
+
+            binding.tvViewAllLeagues.setOnClickListener {
+                onViewAllLeaguesClick()
+            }
+
+            binding.tvViewAllMatches.setOnClickListener {
+                onViewAllMatchesClick()
+            }
+
             binding.rvAllLeagues.adapter = leagueAdapter.apply {
                 setList(leagueList)
             }
@@ -39,8 +55,6 @@ class HomeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.vpNews.adapter = newsVPAdapter.apply {
                 setList(newsList)
             }
-
-            Log.d("HomeAdapter", "newsList: $newsList")
 
             if (newsList.isNotEmpty()) {
                 binding.indicatorNews.setIndicatorNumber(newsList.size)

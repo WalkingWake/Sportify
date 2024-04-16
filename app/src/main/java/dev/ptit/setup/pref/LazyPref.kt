@@ -33,5 +33,18 @@ class LazyPref(private val context: Context) {
         editor.apply()
     }
 
+    fun get(key: String, defaultValue: Int): Int {
+        val sharedPreferences =
+            context.getSharedPreferences(Keys.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getInt(key, defaultValue)
+    }
+
+    fun put(key: String, value: Int) {
+        val sharedPreferences =
+            context.getSharedPreferences(Keys.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putInt(key, value)
+        editor.apply()
+    }
 
 }
