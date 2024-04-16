@@ -9,6 +9,8 @@ import dev.ptit.data.league.LeagueEntity
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
+import dev.ptit.data.match.MatchEntity
+import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.news.NewsEntity
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagEntity
@@ -32,7 +34,8 @@ class FirebaseService(
     private val newsTagRepository: NewsTagRepository,
     private val leagueRepository: LeagueRepository,
     private val teamRepository: TeamRepository,
-    private val leagueTeamRepository: LeagueTeamRepository
+    private val leagueTeamRepository: LeagueTeamRepository,
+    private val matchRepository: MatchRepository
 ) {
 
     fun init() {
@@ -42,6 +45,7 @@ class FirebaseService(
         getAllLeagues()
         getAllTeams()
         getAllLeagueTeams()
+        getAllMatches()
     }
 
     private fun <T> DatabaseReference.addValueEventListenerFlow(dataType: Class<T>): Flow<List<T>> =
@@ -111,6 +115,15 @@ class FirebaseService(
             firebaseInstance.getReference("league_team")
                 .addValueEventListenerFlow(LeagueTeamEntity::class.java).collect { leagueTeams ->
                     leagueTeamRepository.insertLeagueTeams(leagueTeams)
+                }
+        }
+    }
+
+    private fun getAllMatches() {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("matches")
+                .addValueEventListenerFlow(MatchEntity::class.java).collect { matches ->
+                    matchRepository.insertMatches(matches)
                 }
         }
     }

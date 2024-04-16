@@ -1,7 +1,6 @@
 package dev.ptit.ui.screen.matches
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ptit.R
-import dev.ptit.data.league.LeagueRepository
-import dev.ptit.data.match.MatchRepository
 import dev.ptit.databinding.FragmentMatchesBinding
+import dev.ptit.setup.extension.formattedDateToLong
 import dev.ptit.ui.adapter.match.MatchAdapter
 import kotlinx.coroutines.launch
 
@@ -46,11 +44,13 @@ class MatchesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isUpcomingState.collect {
                 matchAdapter?.setUpcomingState(it)
-                if (it) {
-                    matchAdapter?.setMatchList(MatchRepository().getUpcomingMatches())
-                } else {
-                    matchAdapter?.setMatchList(MatchRepository().getPastMatches())
-                }
+                setMatches()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.matches.collect {
+                setMatches()
             }
         }
 
@@ -58,9 +58,42 @@ class MatchesFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.leagues.collect {
-                Log.d("MatchesFragment", "onViewCreated: $it")
                 matchAdapter?.setLeagueList(it)
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.teams.collect {
+                matchAdapter?.setTeamList(it)
+            }
+        }
+    }
+
+    private fun setMatches() {
+        if (viewModel.isUpcomingState.value) {
+            matchAdapter?.setMatchList(
+                viewModel.matches.value
+                    .filter { match ->
+                        val currentTime = System.currentTimeMillis()
+                        val matchTime = match.startTime.formattedDateToLong()
+                        matchTime > currentTime
+                    }
+                    .sortedBy {
+                        it.startTime.formattedDateToLong()
+                    }
+            )
+        } else {
+            matchAdapter?.setMatchList(
+                viewModel.matches.value
+                    .filter { match ->
+                        val currentTime = System.currentTimeMillis()
+                        val matchTime = match.startTime.formattedDateToLong()
+                        matchTime <= currentTime
+                    }
+                    .sortedBy {
+                        -it.startTime.formattedDateToLong()
+                    }
+            )
         }
     }
 

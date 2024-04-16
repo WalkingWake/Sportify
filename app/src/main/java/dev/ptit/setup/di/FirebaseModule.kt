@@ -9,6 +9,7 @@ import dev.ptit.data.FirebaseService
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
+import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagRepository
 import dev.ptit.data.tag.TagRepository
@@ -35,7 +36,8 @@ object FirebaseModule {
         newsTagRepository: NewsTagRepository,
         leagueRepository: LeagueRepository,
         teamRepository: TeamRepository,
-        leagueTeamRepository: LeagueTeamRepository
+        leagueTeamRepository: LeagueTeamRepository,
+        matchRepository: MatchRepository
     ): FirebaseService {
         return FirebaseService(
             firebaseDatabase,
@@ -44,7 +46,8 @@ object FirebaseModule {
             newsTagRepository,
             leagueRepository,
             teamRepository,
-            leagueTeamRepository
+            leagueTeamRepository,
+            matchRepository
         )
     }
 }

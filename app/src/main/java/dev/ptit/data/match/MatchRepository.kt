@@ -1,101 +1,13 @@
 package dev.ptit.data.match
 
-class MatchRepository {
+class MatchRepository(
+    private val matchDao: MatchDao
+) {
 
-    fun getAllMatches(): List<MatchModel> {
-        return listOf(
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", true
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", true
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", true
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", true
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-            MatchModel(
-                1,
-                "MU",
-                "MU",
-                1, 3, "", "", false
-            ),
-        )
-    }
+    fun getAllMatches() = matchDao.getAllMatches()
 
-    fun getUpcomingMatches(): List<MatchModel> {
-        return getAllMatches().filter { it.isUpcoming }
-    }
+    suspend fun insertMatch(matchEntity: MatchEntity) = matchDao.insertMatch(matchEntity)
 
-    fun getPastMatches(): List<MatchModel> {
-        return getAllMatches().filter { !it.isUpcoming }
-    }
+    suspend fun insertMatches(matchEntities: List<MatchEntity>) =
+        matchDao.insertMatches(matchEntities)
 }

@@ -12,6 +12,8 @@ import dev.ptit.data.league.LeagueDao
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamDao
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
+import dev.ptit.data.match.MatchDao
+import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.news.NewsDao
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagDao
@@ -95,5 +97,15 @@ object DatabaseModule {
     @Singleton
     fun provideLeagueTeamRepository(leagueTeamDao: LeagueTeamDao): LeagueTeamRepository {
         return LeagueTeamRepository(leagueTeamDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchDao(database: AppDatabase) = database.matchDao()
+
+    @Provides
+    @Singleton
+    fun provideMatchRepository(matchDao: MatchDao): MatchRepository {
+        return MatchRepository(matchDao)
     }
 }

@@ -1,4 +1,4 @@
-package dev.ptit.data.news
+package dev.ptit.data.match
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -6,16 +6,15 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
-interface NewsDao {
-
-    @Query("SELECT * FROM news")
-    fun getAllNews(): Flow<List<NewsEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(news: NewsEntity)
+interface MatchDao {
+    @Query("SELECT * FROM `match`")
+    fun getAllMatches(): Flow<List<MatchEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(news: List<NewsEntity>)
+    suspend fun insertMatch(matchEntity: MatchEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMatches(matchEntities: List<MatchEntity>)
 }
