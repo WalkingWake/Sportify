@@ -38,6 +38,10 @@ class UserRepository(
         return users.find { it.email == email }?.remoteId
     }
 
+    fun getUserByEmail(email: String): UserModel? {
+        return users.find { it.email == email }
+    }
+
     fun updatePassword(userId : Int, password: String) {
         val userReference = firebaseInstance.getReference("users/$userId")
         userReference.child("password").setValue(password)

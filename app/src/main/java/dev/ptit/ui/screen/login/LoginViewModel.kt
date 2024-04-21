@@ -1,24 +1,75 @@
 package dev.ptit.ui.screen.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ptit.data.MailService
+import dev.ptit.data.mail.MailModel
 import dev.ptit.data.user.UserModel
 import dev.ptit.data.user.UserRepository
 import dev.ptit.setup.keys.Keys
 import dev.ptit.setup.pref.LazyPref
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val lazyPref: LazyPref,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val mailService: MailService
 ) : ViewModel() {
 
-    private var forgotPasswordUserId : Int? = null
+    private var forgotPasswordUserId: Int? = null
     private var verifyUser: UserModel? = null
+    private var verifyCode: String? = null
+
+    fun verifySignUp() {
+        val code = (1000..9999).random().toString()
+        verifyCode = code
+        val call = mailService.sendMailRegister(
+            MailModel(
+                toEmail = verifyUser?.email ?: "",
+                name = verifyUser?.name ?: "",
+                code = verifyCode ?: ""
+            )
+        )
+
+        call.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                Log.d("TAG", "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("TAG", "onFailure: ${t.message}")
+            }
+        })
+    }
+
+    fun verifyResetPassword(email: String) {
+        val code = (1000..9999).random().toString()
+        verifyCode = code
+        val call = mailService.sendMailReset(
+            MailModel(
+                toEmail = email,
+                name = userRepository.getUserByEmail(email)?.name ?: "",
+                code = verifyCode ?: ""
+            )
+        )
+        call.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                Log.d("TAG", "onResponse: ${response.body()}")
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.d("TAG", "onFailure: ${t.message}")
+            }
+        })
+    }
 
     fun verifyCode(code: String): Boolean {
-        return code == "0000"
+        return code == verifyCode
     }
 
     fun login(
@@ -33,7 +84,7 @@ class LoginViewModel @Inject constructor(
         return false
     }
 
-    fun registerUser(){
+    fun registerUser() {
         verifyUser?.let {
             userRepository.registerUser(it)
         }

@@ -34,8 +34,8 @@ class ForgotPasswordFragment : Fragment() {
         binding.tvNextButton.setOnClickListener {
             if (viewModel.checkEmailForgotPassword(binding.etYourEmail.text.toString())) {
                 binding.tvEnterYourEmail.visibility = View.INVISIBLE
-
                 val bundle = Bundle()
+                viewModel.verifyResetPassword(binding.etYourEmail.text.toString())
                 bundle.putString(Keys.NAVIGATE_FROM, Keys.FORGOT_PASSWORD_FRAGMENT)
                 findNavController().navigate(
                     R.id.action_forgotPasswordFragment_to_verifyFragment,

@@ -47,6 +47,7 @@ class CreateAccountFragment : Fragment() {
                 SignUpState.VERIFY -> {
                     binding.tvPasswordWarning.visibility = View.GONE
                     val bundle = Bundle()
+                    viewModel.verifySignUp()
                     bundle.putString(Keys.NAVIGATE_FROM, Keys.CREATE_ACCOUNT_FRAGMENT)
                     findNavController().navigate(
                         R.id.action_createAccountFragment_to_verifyFragment,
