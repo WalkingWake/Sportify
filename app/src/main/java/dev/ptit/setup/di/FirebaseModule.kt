@@ -7,15 +7,20 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.ptit.data.FirebaseService
 import dev.ptit.data.comments.CommentRepository
+import dev.ptit.data.comments.CommentService
+import dev.ptit.data.goal.GoalRepository
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
 import dev.ptit.data.match.MatchRepository
+import dev.ptit.data.matchdata.MatchDataRepository
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagRepository
+import dev.ptit.data.substitution.SubstitutionRepository
 import dev.ptit.data.tag.TagRepository
 import dev.ptit.data.team.TeamRepository
 import dev.ptit.data.user.UserRepository
+import dev.ptit.data.yellowcard.YellowCardRepository
 import javax.inject.Singleton
 
 
@@ -37,6 +42,15 @@ object FirebaseModule {
 
     @Provides
     @Singleton
+    fun provideCommentService(
+        firebaseDatabase: FirebaseDatabase,
+        commentRepository: CommentRepository
+    ): CommentService {
+        return CommentService(firebaseDatabase, commentRepository)
+    }
+
+    @Provides
+    @Singleton
     fun provideFirebaseService(
         firebaseDatabase: FirebaseDatabase,
         newsRepository: NewsRepository,
@@ -46,7 +60,11 @@ object FirebaseModule {
         teamRepository: TeamRepository,
         leagueTeamRepository: LeagueTeamRepository,
         matchRepository: MatchRepository,
-        commentRepository: CommentRepository
+        commentRepository: CommentRepository,
+        goalRepository: GoalRepository,
+        yellowCardRepository: YellowCardRepository,
+        substitutionRepository: SubstitutionRepository,
+        matchDataRepository: MatchDataRepository
     ): FirebaseService {
         return FirebaseService(
             firebaseDatabase,
@@ -57,7 +75,11 @@ object FirebaseModule {
             teamRepository,
             leagueTeamRepository,
             matchRepository,
-            commentRepository
+            commentRepository,
+            goalRepository,
+            yellowCardRepository,
+            substitutionRepository,
+            matchDataRepository
         )
     }
 }

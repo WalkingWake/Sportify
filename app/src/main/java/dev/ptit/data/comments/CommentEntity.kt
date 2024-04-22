@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 data class CommentEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val remoteId : Int = 0,
+    var remoteId : Int = 0,
     val comment : String = "",
-    val userId : Int = 0,
-    val matchId : Int = 0
+    var userId : Int = 0,
+    var matchId : Int = 0
 )

@@ -3,20 +3,28 @@ package dev.ptit.data
 import com.google.firebase.database.FirebaseDatabase
 import dev.ptit.data.comments.CommentEntity
 import dev.ptit.data.comments.CommentRepository
+import dev.ptit.data.goal.GoalEntity
+import dev.ptit.data.goal.GoalRepository
 import dev.ptit.data.league.LeagueEntity
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
 import dev.ptit.data.match.MatchEntity
 import dev.ptit.data.match.MatchRepository
+import dev.ptit.data.matchdata.MatchDataEntity
+import dev.ptit.data.matchdata.MatchDataRepository
 import dev.ptit.data.news.NewsEntity
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagEntity
 import dev.ptit.data.newstagmapping.NewsTagRepository
+import dev.ptit.data.substitution.SubstitutionEntity
+import dev.ptit.data.substitution.SubstitutionRepository
 import dev.ptit.data.tag.TagEntity
 import dev.ptit.data.tag.TagRepository
 import dev.ptit.data.team.TeamEntity
 import dev.ptit.data.team.TeamRepository
+import dev.ptit.data.yellowcard.YellowCardEntity
+import dev.ptit.data.yellowcard.YellowCardRepository
 import dev.ptit.setup.extension.addValueEventListenerFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +39,11 @@ class FirebaseService(
     private val teamRepository: TeamRepository,
     private val leagueTeamRepository: LeagueTeamRepository,
     private val matchRepository: MatchRepository,
-    private val commentRepository: CommentRepository
+    private val commentRepository: CommentRepository,
+    private val goalRepository: GoalRepository,
+    private val yellowCardRepository: YellowCardRepository,
+    private val substitutionRepository: SubstitutionRepository,
+    private val matchDataRepository: MatchDataRepository
 ) {
 
     init {
@@ -43,6 +55,10 @@ class FirebaseService(
         getAllLeagueTeams()
         getAllMatches()
         getAllComments()
+        getAllGoals()
+        getAllYellowCards()
+        getAllSubstitutions()
+        getAllMatchData()
     }
 
 
@@ -114,6 +130,42 @@ class FirebaseService(
             firebaseInstance.getReference("comments")
                 .addValueEventListenerFlow(CommentEntity::class.java).collect { comments ->
                     commentRepository.insertComments(comments)
+                }
+        }
+    }
+
+    private fun getAllGoals(){
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("goals")
+                .addValueEventListenerFlow(GoalEntity::class.java).collect { goals ->
+                    goalRepository.insertGoals(goals)
+                }
+        }
+    }
+
+    private fun getAllYellowCards(){
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("yellowCards")
+                .addValueEventListenerFlow(YellowCardEntity::class.java).collect { yellowCards ->
+                    yellowCardRepository.insertYellowCards(yellowCards)
+                }
+        }
+    }
+
+    private fun getAllSubstitutions(){
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("substitutions")
+                .addValueEventListenerFlow(SubstitutionEntity::class.java).collect { substitutions ->
+                    substitutionRepository.insertSubstitutions(substitutions)
+                }
+        }
+    }
+
+    private fun getAllMatchData(){
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("matchDatas")
+                .addValueEventListenerFlow(MatchDataEntity::class.java).collect { matchData ->
+                    matchDataRepository.insertMatchData(matchData)
                 }
         }
     }

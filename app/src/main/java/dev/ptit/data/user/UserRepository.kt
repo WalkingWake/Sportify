@@ -34,6 +34,10 @@ class UserRepository(
         })
     }
 
+
+    fun getAllUsers(): List<UserModel> {
+        return users
+    }
     fun getUserIdByEmail(email: String): Int? {
         return users.find { it.email == email }?.remoteId
     }

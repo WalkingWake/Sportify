@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvClub1ShotsOnTarget"
+            android:id="@+id/tvClub1Shots"
             android:layout_width="56dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -21,6 +21,42 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvShots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/shots"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/tvClub2Shots"
+            app:layout_constraintStart_toEndOf="@id/tvClub1Shots"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvClub2Shots"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvClub1ShotsOnTarget"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/content"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Shots" />
+
+        <TextView
             android:id="@+id/tvShotsOnTarget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +66,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/tvClub2ShotsOnTarget"
             app:layout_constraintStart_toEndOf="@id/tvClub1ShotsOnTarget"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Shots" />
 
         <TextView
             android:id="@+id/tvClub2ShotsOnTarget"
@@ -42,7 +78,7 @@
             android:textColor="@color/content"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tvClub1Shots" />
 
         <TextView
             android:id="@+id/tvClub1Possession"

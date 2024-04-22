@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,7 @@ class MatchesFragment : Fragment() {
 
     private var _binding: FragmentMatchesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MatchViewModel by viewModels()
+    private val viewModel: MatchViewModel by activityViewModels()
     private var matchAdapter: MatchAdapter? = null
 
     override fun onCreateView(
@@ -36,6 +37,7 @@ class MatchesFragment : Fragment() {
         matchAdapter = MatchAdapter({
             viewModel.onLeagueClick(it)
         }, {
+            viewModel.setCurrentMatchId(it.remoteId)
             findNavController().navigate(R.id.action_matchesFragment_to_matchDetailFragment)
         }, {
             viewModel.onUpcomingClick(it)
