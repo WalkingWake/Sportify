@@ -34,7 +34,7 @@ class MatchesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         matchAdapter = MatchAdapter({
-            viewModel.onLeagueClick(it.id)
+            viewModel.onLeagueClick(it)
         }, {
             findNavController().navigate(R.id.action_matchesFragment_to_matchDetailFragment)
         }, {
@@ -44,13 +44,19 @@ class MatchesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isUpcomingState.collect {
                 matchAdapter?.setUpcomingState(it)
-                setMatches()
+//                matchAdapter?.setMatchList(viewModel.uiMatches.value)
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.matches.collect {
-                setMatches()
+            viewModel.uiMatches.collect {
+                matchAdapter?.setMatchList(viewModel.uiMatches.value)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.selectedLeagueId.collect {
+                matchAdapter?.setSelectedLeague(it)
             }
         }
 
@@ -66,34 +72,6 @@ class MatchesFragment : Fragment() {
             viewModel.teams.collect {
                 matchAdapter?.setTeamList(it)
             }
-        }
-    }
-
-    private fun setMatches() {
-        if (viewModel.isUpcomingState.value) {
-            matchAdapter?.setMatchList(
-                viewModel.matches.value
-                    .filter { match ->
-                        val currentTime = System.currentTimeMillis()
-                        val matchTime = match.startTime.formattedDateToLong()
-                        matchTime > currentTime
-                    }
-                    .sortedBy {
-                        it.startTime.formattedDateToLong()
-                    }
-            )
-        } else {
-            matchAdapter?.setMatchList(
-                viewModel.matches.value
-                    .filter { match ->
-                        val currentTime = System.currentTimeMillis()
-                        val matchTime = match.startTime.formattedDateToLong()
-                        matchTime <= currentTime
-                    }
-                    .sortedBy {
-                        -it.startTime.formattedDateToLong()
-                    }
-            )
         }
     }
 

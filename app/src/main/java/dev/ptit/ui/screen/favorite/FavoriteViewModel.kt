@@ -22,7 +22,7 @@ class FavoriteViewModel @Inject constructor(
     private val leagueTeamRepository: LeagueTeamRepository
 ) : ViewModel() {
 
-    private val _selectedLeague = MutableStateFlow<LeagueEntity?>(null)
+    private val _selectedLeague = MutableStateFlow(0)
     val selectedLeague = _selectedLeague.asStateFlow()
 
     private val _teams = MutableStateFlow<List<TeamEntity>>(listOf())
@@ -56,16 +56,14 @@ class FavoriteViewModel @Inject constructor(
         }
     }
 
-    fun setSelectedLeague(league: LeagueEntity) {
-        _selectedLeague.value = league
+    fun setSelectedLeague(leagueId: Int) {
+        _selectedLeague.value = leagueId
         updateUIState()
     }
 
     private fun updateUIState() {
-        _selectedLeague.value?.let { league ->
-            _teams.update {
-                getTeamsByLeagueId(league.remoteId)
-            }
+        _teams.update {
+            getTeamsByLeagueId(_selectedLeague.value)
         }
     }
 

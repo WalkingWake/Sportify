@@ -1,5 +1,6 @@
 package dev.ptit.ui.screen.matches
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,6 +10,7 @@ import dev.ptit.data.match.MatchEntity
 import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.team.TeamEntity
 import dev.ptit.data.team.TeamRepository
+import dev.ptit.setup.extension.formattedDateToLong
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,10 +27,12 @@ class MatchViewModel @Inject constructor(
     val leagues = _leagues.asStateFlow()
 
     private val _matches = MutableStateFlow<List<MatchEntity>>(listOf())
-    val matches = _matches.asStateFlow()
 
     private val _teams = MutableStateFlow<List<TeamEntity>>(listOf())
     val teams = _teams.asStateFlow()
+
+    private val _uiMatches = MutableStateFlow<List<MatchEntity>>(listOf())
+    val uiMatches = _uiMatches.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -40,6 +44,7 @@ class MatchViewModel @Inject constructor(
         viewModelScope.launch {
             matchRepository.getAllMatches().collect { matchList ->
                 _matches.value = matchList
+                setUIMatches()
             }
         }
 
@@ -58,9 +63,40 @@ class MatchViewModel @Inject constructor(
 
     fun onUpcomingClick(isUpcoming: Boolean) {
         _isUpcomingState.value = isUpcoming
+        setUIMatches()
+    }
+
+    private fun setUIMatches() {
+        _uiMatches.value = if (_isUpcomingState.value) {
+            _matches.value
+                .filter { match ->
+                    val currentTime = System.currentTimeMillis()
+                    val matchTime = match.startTime.formattedDateToLong()
+                    matchTime > currentTime
+                }
+                .sortedBy {
+                    it.startTime.formattedDateToLong()
+                }
+        } else {
+            _matches.value
+                .filter { match ->
+                    val currentTime = System.currentTimeMillis()
+                    val matchTime = match.startTime.formattedDateToLong()
+                    matchTime <= currentTime
+                }
+                .sortedBy {
+                    -it.startTime.formattedDateToLong()
+                }
+        }
+
+        _uiMatches.value = _uiMatches.value.filter { match ->
+            match.leagueId == _selectedLeagueId.value
+        }
     }
 
     fun onLeagueClick(leagueId: Int) {
+        Log.d("TAG", "onLeagueClick: $leagueId")
         _selectedLeagueId.value = leagueId
+        setUIMatches()
     }
 }

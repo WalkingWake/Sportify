@@ -9,24 +9,24 @@ import dev.ptit.data.league.LeagueEntity
 import dev.ptit.databinding.ItemRvLeagueBinding
 
 class LeagueAdapter(
-    private val onLeagueClick: (LeagueEntity) -> Unit
+    private val onLeagueClick: (Int) -> Unit
 ) : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
 
     private var leagueList = listOf<LeagueEntity>()
-    private var selectedLeague : LeagueEntity? = null
+    private var selectedLeague : Int? = 0
 
     inner class ViewHolder(
         private val binding: ItemRvLeagueBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(leagueEntity: LeagueEntity) {
 
-            if (selectedLeague == leagueEntity) {
+            if (selectedLeague == leagueEntity.remoteId) {
                 binding.clLeague.setBackgroundColor(itemView.context.getColor(R.color.primary))
             } else {
                 binding.clLeague.setBackgroundColor(itemView.context.getColor(R.color.transparent))
             }
             binding.clLeague.setOnClickListener {
-                onLeagueClick(leagueEntity)
+                onLeagueClick(leagueEntity.remoteId)
             }
             binding.tvLeague.text = leagueEntity.name
             Glide.with(itemView.context).load(leagueEntity.logo).into(binding.ivLeague)
@@ -57,7 +57,7 @@ class LeagueAdapter(
         notifyDataSetChanged()
     }
 
-    fun setSelectedLeague(leagueId: LeagueEntity?) {
+    fun setSelectedLeague(leagueId: Int?) {
         this.selectedLeague = leagueId
         notifyDataSetChanged()
     }

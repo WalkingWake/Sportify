@@ -17,7 +17,7 @@ import dev.ptit.setup.extension.longToFormattedDate
 import dev.ptit.setup.utils.Utils
 
 class MatchAdapter(
-    private val onLeagueClick: (LeagueEntity) -> Unit,
+    private val onLeagueClick: (Int) -> Unit,
     private val onMatchClick: (MatchEntity) -> Unit,
     private val onUpcomingClick: (Boolean) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -28,12 +28,14 @@ class MatchAdapter(
     private var matchList = listOf<MatchEntity>()
     private var teamList = listOf<TeamEntity>()
 
+    private val leagueAdapter: LeagueAdapter = LeagueAdapter {
+        onLeagueClick(it)
+    }
+
     inner class MatchHeaderViewHolder(private val binding: ItemRvMatchHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val leagueAdapter: LeagueAdapter = LeagueAdapter {
-            onLeagueClick(it)
-        }
+
 
         fun bind() {
             binding.tvUpcoming.setOnClickListener {
@@ -226,5 +228,9 @@ class MatchAdapter(
 
     private fun getLeagueById(id: Int): LeagueEntity? {
         return leagueList.find { it.remoteId == id }
+    }
+
+    fun setSelectedLeague(leagueId: Int) {
+        leagueAdapter.setSelectedLeague(leagueId)
     }
 }

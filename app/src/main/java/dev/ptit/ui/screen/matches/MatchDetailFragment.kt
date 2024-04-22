@@ -15,6 +15,8 @@ class MatchDetailFragment : Fragment() {
     private var _binding: FragmentMatchDetailBinding? = null
     private val binding get() = _binding!!
 
+    private val matchDetailAdapter = MatchDetailAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +28,7 @@ class MatchDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.vpMatchDetails.adapter = MatchDetailAdapter()
+        binding.vpMatchDetails.adapter = matchDetailAdapter
 
         TabLayoutMediator(binding.tlMatchDetails, binding.vpMatchDetails) { tab, position ->
             tab.text = when (position) {
