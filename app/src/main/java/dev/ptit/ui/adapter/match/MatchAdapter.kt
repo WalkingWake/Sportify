@@ -28,14 +28,14 @@ class MatchAdapter(
     private var matchList = listOf<MatchEntity>()
     private var teamList = listOf<TeamEntity>()
 
+    private var isSearching = false
+
     private val leagueAdapter: LeagueAdapter = LeagueAdapter {
         onLeagueClick(it)
     }
 
     inner class MatchHeaderViewHolder(private val binding: ItemRvMatchHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-
 
         fun bind() {
             binding.tvUpcoming.setOnClickListener {
@@ -72,14 +72,20 @@ class MatchAdapter(
             val team2 = getTeamById(matchEntity.team2Id)
             val league = getLeagueById(matchEntity.leagueId)
 
-            if(position == 0 || !Utils.checkSameDay(matchList[position - 1].startTime, matchEntity.startTime)) {
+            if (position == 0 || !Utils.checkSameDay(
+                    matchList[position - 1].startTime,
+                    matchEntity.startTime
+                )
+            ) {
                 binding.tvMatchDate.visibility = View.VISIBLE
-                binding.tvMatchDate.text = matchEntity.startTime.formattedDateToLong().longToFormattedDate("EE dd/MM")
+                binding.tvMatchDate.text =
+                    matchEntity.startTime.formattedDateToLong().longToFormattedDate("EE dd/MM")
             } else {
                 binding.tvMatchDate.visibility = View.GONE
             }
 
-            binding.tvMatchTime.text = matchEntity.startTime.formattedDateToLong().longToFormattedDate("HH:mm")
+            binding.tvMatchTime.text =
+                matchEntity.startTime.formattedDateToLong().longToFormattedDate("HH:mm")
 
             Glide.with(itemView.context)
                 .load(league?.logo)
@@ -106,9 +112,14 @@ class MatchAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(matchEntity: MatchEntity, position: Int) {
 
-            if(position == 0 || !Utils.checkSameDay(matchList[position - 1].startTime, matchEntity.startTime)) {
+            if (position == 0 || !Utils.checkSameDay(
+                    matchList[position - 1].startTime,
+                    matchEntity.startTime
+                )
+            ) {
                 binding.tvMatchDate.visibility = View.VISIBLE
-                binding.tvMatchDate.text = matchEntity.startTime.formattedDateToLong().longToFormattedDate("EE dd/MM")
+                binding.tvMatchDate.text =
+                    matchEntity.startTime.formattedDateToLong().longToFormattedDate("EE dd/MM")
             } else {
                 binding.tvMatchDate.visibility = View.GONE
             }
@@ -176,30 +187,43 @@ class MatchAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 1 + matchList.size
+        return if (!isSearching) 1 + matchList.size else matchList.size
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MatchHeaderViewHolder -> holder.bind()
-            is UpcomingMatchViewHolder -> holder.bind(matchList[position - 1], position - 1)
-            is PastMatchViewHolder -> holder.bind(matchList[position - 1], position - 1)
+            is UpcomingMatchViewHolder -> holder.bind(
+                matchList[if (!isSearching) position - 1 else position],
+                if (!isSearching) position - 1 else position
+            )
+
+            is PastMatchViewHolder -> holder.bind(
+                matchList[if (!isSearching) position - 1 else position],
+                if (!isSearching) position - 1 else position
+            )
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (position) {
-            0 -> MatchViewType.HEADER.type
-            else -> {
-                MatchViewType.UPCOMING_MATCH.type
-                if (matchList[position - 1].startTime.formattedDateToLong() > System.currentTimeMillis()) {
-                    MatchViewType.UPCOMING_MATCH.type
-                } else {
-                    MatchViewType.PAST_MATCH.type
-                }
-            }
+        if(position == 0 && !isSearching) return MatchViewType.HEADER.type
+        return if (matchList[if(!isSearching) position - 1 else position].startTime.formattedDateToLong() > System.currentTimeMillis()) {
+            MatchViewType.UPCOMING_MATCH.type
+        } else {
+            MatchViewType.PAST_MATCH.type
         }
+//        return when (position) {
+//            0 -> MatchViewType.HEADER.type
+//            else -> {
+//                MatchViewType.UPCOMING_MATCH.type
+//                if (matchList[position - 1].startTime.formattedDateToLong() > System.currentTimeMillis()) {
+//                    MatchViewType.UPCOMING_MATCH.type
+//                } else {
+//                    MatchViewType.PAST_MATCH.type
+//                }
+//            }
+//        }
     }
 
     fun setLeagueList(leagueList: List<LeagueEntity>) {
@@ -232,5 +256,10 @@ class MatchAdapter(
 
     fun setSelectedLeague(leagueId: Int) {
         leagueAdapter.setSelectedLeague(leagueId)
+    }
+
+    fun setIsSearching(isSearching: Boolean) {
+        this.isSearching = isSearching
+        notifyDataSetChanged()
     }
 }

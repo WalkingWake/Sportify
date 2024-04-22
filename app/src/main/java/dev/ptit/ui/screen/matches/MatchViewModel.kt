@@ -51,7 +51,7 @@ class MatchViewModel @Inject constructor(
     private val yellowCardRepository: YellowCardRepository,
     private val substitutionRepository: SubstitutionRepository,
     private val matchNewsRepository: MatchNewsRepository,
-    private val newsRepository:  NewsRepository
+    private val newsRepository: NewsRepository
 ) : ViewModel() {
 
     private val _leagues = MutableStateFlow<List<LeagueEntity>>(listOf())
@@ -79,7 +79,7 @@ class MatchViewModel @Inject constructor(
     private val _timelines = MutableStateFlow<List<Timeline>>(listOf())
     val timelines = _timelines.asStateFlow()
 
-    private val  _uiNews = MutableStateFlow<List<NewsEntity>>(listOf())
+    private val _uiNews = MutableStateFlow<List<NewsEntity>>(listOf())
     val uiNews = _uiNews.asStateFlow()
 
     private val currentMatchId = MutableStateFlow(0)
@@ -175,13 +175,48 @@ class MatchViewModel @Inject constructor(
         setUIMatches()
     }
 
+    fun searchMatch(query: String) {
+        _uiMatches.value =
+
+            if (_isUpcomingState.value) {
+                _matches.value
+                    .filter { match ->
+                        val currentTime = System.currentTimeMillis()
+                        val matchTime = match.startTime.formattedDateToLong()
+                        matchTime > currentTime
+                    }
+                    .sortedBy {
+                        it.startTime.formattedDateToLong()
+                    }
+            } else {
+                _matches.value
+                    .filter { match ->
+                        val currentTime = System.currentTimeMillis()
+                        val matchTime = match.startTime.formattedDateToLong()
+                        matchTime <= currentTime
+                    }
+                    .sortedBy {
+                        -it.startTime.formattedDateToLong()
+                    }
+            }.filter {
+            _teams.value.find { team -> team.remoteId == it.team1Id }?.name?.contains(
+                query,
+                true
+            ) == true ||
+                    _teams.value.find { team -> team.remoteId == it.team2Id }?.name?.contains(
+                        query,
+                        true
+                    ) == true
+        }
+    }
+
     private fun setUIComments() {
         _uiComments.value = comments.value.filter {
             it.matchId == currentMatchId.value
         }
     }
 
-    private fun setUIMatches() {
+    fun setUIMatches() {
         _uiMatches.value = if (_isUpcomingState.value) {
             _matches.value
                 .filter { match ->

@@ -80,15 +80,12 @@ class HomeFragment : Fragment() {
         //on text change for edittext
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d("TAG", "beforeTextChanged: $s")
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d("TAG", "onTextChanged: $s")
             }
 
             override fun afterTextChanged(s: Editable?) {
-                Log.d("TAG", "afterTextChanged: $s")
                 if (s.isNullOrEmpty()) {
                     homeAdapter?.setIsSearching(false)
                 } else {
