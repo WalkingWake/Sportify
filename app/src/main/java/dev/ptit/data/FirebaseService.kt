@@ -1,10 +1,8 @@
 package dev.ptit.data
 
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import dev.ptit.data.comments.CommentEntity
+import dev.ptit.data.comments.CommentRepository
 import dev.ptit.data.league.LeagueEntity
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamEntity
@@ -22,10 +20,6 @@ import dev.ptit.data.team.TeamRepository
 import dev.ptit.setup.extension.addValueEventListenerFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
 
 class FirebaseService(
@@ -36,7 +30,8 @@ class FirebaseService(
     private val leagueRepository: LeagueRepository,
     private val teamRepository: TeamRepository,
     private val leagueTeamRepository: LeagueTeamRepository,
-    private val matchRepository: MatchRepository
+    private val matchRepository: MatchRepository,
+    private val commentRepository: CommentRepository
 ) {
 
     init {
@@ -47,6 +42,7 @@ class FirebaseService(
         getAllTeams()
         getAllLeagueTeams()
         getAllMatches()
+        getAllComments()
     }
 
 
@@ -109,6 +105,15 @@ class FirebaseService(
             firebaseInstance.getReference("matches")
                 .addValueEventListenerFlow(MatchEntity::class.java).collect { matches ->
                     matchRepository.insertMatches(matches)
+                }
+        }
+    }
+
+    private fun getAllComments(){
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("comments")
+                .addValueEventListenerFlow(CommentEntity::class.java).collect { comments ->
+                    commentRepository.insertComments(comments)
                 }
         }
     }

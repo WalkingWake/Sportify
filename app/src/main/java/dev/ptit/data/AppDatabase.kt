@@ -2,6 +2,8 @@ package dev.ptit.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import dev.ptit.data.comments.CommentDao
+import dev.ptit.data.comments.CommentEntity
 import dev.ptit.data.league.LeagueDao
 import dev.ptit.data.league.LeagueEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamDao
@@ -25,7 +27,8 @@ import dev.ptit.data.team.TeamEntity
         LeagueEntity::class,
         TeamEntity::class,
         LeagueTeamEntity::class,
-        MatchEntity::class
+        MatchEntity::class,
+        CommentEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -45,4 +48,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun leagueTeamDao(): LeagueTeamDao
 
     abstract fun matchDao(): MatchDao
+
+    abstract fun commentDao(): CommentDao
 }

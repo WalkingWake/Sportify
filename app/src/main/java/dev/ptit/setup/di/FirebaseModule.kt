@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.ptit.data.FirebaseService
+import dev.ptit.data.comments.CommentRepository
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
@@ -44,7 +45,8 @@ object FirebaseModule {
         leagueRepository: LeagueRepository,
         teamRepository: TeamRepository,
         leagueTeamRepository: LeagueTeamRepository,
-        matchRepository: MatchRepository
+        matchRepository: MatchRepository,
+        commentRepository: CommentRepository
     ): FirebaseService {
         return FirebaseService(
             firebaseDatabase,
@@ -54,7 +56,8 @@ object FirebaseModule {
             leagueRepository,
             teamRepository,
             leagueTeamRepository,
-            matchRepository
+            matchRepository,
+            commentRepository
         )
     }
 }

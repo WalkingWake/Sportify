@@ -8,6 +8,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.ptit.data.AppDatabase
+import dev.ptit.data.comments.CommentDao
+import dev.ptit.data.comments.CommentRepository
 import dev.ptit.data.league.LeagueDao
 import dev.ptit.data.league.LeagueRepository
 import dev.ptit.data.leagueteammapping.LeagueTeamDao
@@ -107,5 +109,15 @@ object DatabaseModule {
     @Singleton
     fun provideMatchRepository(matchDao: MatchDao): MatchRepository {
         return MatchRepository(matchDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommentDao(database: AppDatabase) = database.commentDao()
+
+    @Provides
+    @Singleton
+    fun provideCommentRepository(commentDao: CommentDao): CommentRepository {
+        return CommentRepository(commentDao)
     }
 }
