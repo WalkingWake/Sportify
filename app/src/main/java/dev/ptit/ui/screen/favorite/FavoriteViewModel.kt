@@ -46,12 +46,14 @@ class FavoriteViewModel @Inject constructor(
         viewModelScope.launch {
             teamRepository.getAllTeams().collect { teamList ->
                 allTeams.value = teamList
+                updateUIState()
             }
         }
 
         viewModelScope.launch {
             leagueTeamRepository.getAllLeagueTeams().collect { leagueTeamList ->
                 allLeagueTeams.value = leagueTeamList
+                updateUIState()
             }
         }
     }
