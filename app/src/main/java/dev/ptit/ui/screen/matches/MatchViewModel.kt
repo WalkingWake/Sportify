@@ -126,30 +126,35 @@ class MatchViewModel @Inject constructor(
         viewModelScope.launch {
             matchDataRepository.getAllMatchData().collect { matchDataList ->
                 matchDatas.value = matchDataList
+                setMatchData()
             }
         }
 
         viewModelScope.launch {
             goalRepository.getAllGoals().collect { goalList ->
                 goals.value = goalList
+                setMatchData()
             }
         }
 
         viewModelScope.launch {
             yellowCardRepository.getAllYellowCards().collect { yellowCardList ->
                 yellowCards.value = yellowCardList
+                setMatchData()
             }
         }
 
         viewModelScope.launch {
             substitutionRepository.getAllSubstitutions().collect { substitutionList ->
                 substitutions.value = substitutionList
+                setMatchData()
             }
         }
 
         viewModelScope.launch {
             matchNewsRepository.getAllMatchNews().collect { matchNewsList ->
                 matchNews.value = matchNewsList
+                setMatchData()
             }
         }
 
@@ -253,28 +258,34 @@ class MatchViewModel @Inject constructor(
     fun setCurrentMatchId(matchId: Int) {
         currentMatchId.value = matchId
         setUIComments()
-        _currentMatchData.value =
-            matchDatas.value.find { it.matchId == matchId } ?: MatchDataEntity()
+
 
         val match = _matches.value.find { it.remoteId == matchId }
         _team1.value = _teams.value.find { it.remoteId == match?.team1Id } ?: TeamEntity()
         _team2.value = _teams.value.find { it.remoteId == match?.team2Id } ?: TeamEntity()
         _currentMatch.value = match ?: MatchEntity()
 
+        setMatchData()
+
+    }
+
+    private fun setMatchData(){
+        _currentMatchData.value =
+            matchDatas.value.find { it.matchId == currentMatchId.value } ?: MatchDataEntity()
         val timelineList = mutableListOf<Timeline>()
-        goals.value.filter { it.matchId == matchId }.forEach {
+        goals.value.filter { it.matchId == currentMatchId.value }.forEach {
             timelineList.add(it.toTimeline())
         }
-        yellowCards.value.filter { it.matchId == matchId }.forEach {
+        yellowCards.value.filter { it.matchId == currentMatchId.value }.forEach {
             timelineList.add(it.toTimeline())
         }
-        substitutions.value.filter { it.matchId == matchId }.forEach {
+        substitutions.value.filter { it.matchId == currentMatchId.value }.forEach {
             timelineList.add(it.toTimeline())
         }
         _timelines.value = timelineList.sortedBy { it.time }
 
         val newsList = mutableListOf<NewsEntity>()
-        matchNews.value.filter { it.matchId == matchId }.forEach { matchNews ->
+        matchNews.value.filter { it.matchId == currentMatchId.value }.forEach { matchNews ->
             newsList.add(news.value.find { it.remoteId == matchNews.newsId } ?: NewsEntity())
         }
         _uiNews.value = newsList
