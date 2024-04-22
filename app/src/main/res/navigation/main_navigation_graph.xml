@@ -20,6 +20,15 @@
             app:destination="@id/matchesFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToSaveState="true"/>
+        <action
+            android:id="@+id/action_homeFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_matchDetailFragment"
+            app:destination="@id/matchDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchesFragment"

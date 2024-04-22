@@ -13,6 +13,8 @@ import dev.ptit.data.match.MatchEntity
 import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.matchdata.MatchDataEntity
 import dev.ptit.data.matchdata.MatchDataRepository
+import dev.ptit.data.matchnewsmapping.MatchNewsEntity
+import dev.ptit.data.matchnewsmapping.MatchNewsRepository
 import dev.ptit.data.news.NewsEntity
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagEntity
@@ -43,7 +45,8 @@ class FirebaseService(
     private val goalRepository: GoalRepository,
     private val yellowCardRepository: YellowCardRepository,
     private val substitutionRepository: SubstitutionRepository,
-    private val matchDataRepository: MatchDataRepository
+    private val matchDataRepository: MatchDataRepository,
+    private val matchNewsRepository: MatchNewsRepository
 ) {
 
     init {
@@ -59,6 +62,7 @@ class FirebaseService(
         getAllYellowCards()
         getAllSubstitutions()
         getAllMatchData()
+        getAllMatchNews()
     }
 
 
@@ -166,6 +170,15 @@ class FirebaseService(
             firebaseInstance.getReference("matchDatas")
                 .addValueEventListenerFlow(MatchDataEntity::class.java).collect { matchData ->
                     matchDataRepository.insertMatchData(matchData)
+                }
+        }
+    }
+
+    private fun getAllMatchNews(){
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseInstance.getReference("match_news")
+                .addValueEventListenerFlow(MatchNewsEntity::class.java).collect { matchNews ->
+                    matchNewsRepository.insertMatchNews(matchNews)
                 }
         }
     }

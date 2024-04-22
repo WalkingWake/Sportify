@@ -14,6 +14,7 @@ import dev.ptit.data.leagueteammapping.LeagueTeamEntity
 import dev.ptit.data.leagueteammapping.LeagueTeamRepository
 import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.matchdata.MatchDataRepository
+import dev.ptit.data.matchnewsmapping.MatchNewsRepository
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagRepository
 import dev.ptit.data.substitution.SubstitutionRepository
@@ -64,7 +65,8 @@ object FirebaseModule {
         goalRepository: GoalRepository,
         yellowCardRepository: YellowCardRepository,
         substitutionRepository: SubstitutionRepository,
-        matchDataRepository: MatchDataRepository
+        matchDataRepository: MatchDataRepository,
+        matchNewsRepository: MatchNewsRepository
     ): FirebaseService {
         return FirebaseService(
             firebaseDatabase,
@@ -79,7 +81,8 @@ object FirebaseModule {
             goalRepository,
             yellowCardRepository,
             substitutionRepository,
-            matchDataRepository
+            matchDataRepository,
+            matchNewsRepository
         )
     }
 }

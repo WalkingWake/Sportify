@@ -7,7 +7,9 @@ import com.bumptech.glide.Glide
 import dev.ptit.data.league.LeagueEntity
 import dev.ptit.databinding.ItemRvLeagueBinding
 
-class LeagueAdapter : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
+class LeagueAdapter(
+    private val onLeagueClick: (LeagueEntity) -> Unit
+) : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
 
     private var leagueList = listOf<LeagueEntity>()
 
@@ -15,6 +17,9 @@ class LeagueAdapter : RecyclerView.Adapter<LeagueAdapter.ViewHolder>() {
         private val binding: ItemRvLeagueBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(leagueEntity: LeagueEntity) {
+            binding.clLeagueItem.setOnClickListener {
+                onLeagueClick(leagueEntity)
+            }
             Glide.with(itemView.context).load(leagueEntity.logo).into(binding.ivLeague)
             binding.tvLeague.text = leagueEntity.name
         }

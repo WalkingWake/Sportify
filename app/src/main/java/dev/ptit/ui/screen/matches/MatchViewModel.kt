@@ -15,6 +15,10 @@ import dev.ptit.data.match.MatchEntity
 import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.matchdata.MatchDataEntity
 import dev.ptit.data.matchdata.MatchDataRepository
+import dev.ptit.data.matchnewsmapping.MatchNewsEntity
+import dev.ptit.data.matchnewsmapping.MatchNewsRepository
+import dev.ptit.data.news.NewsEntity
+import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.substitution.SubstitutionEntity
 import dev.ptit.data.substitution.SubstitutionRepository
 import dev.ptit.data.team.TeamEntity
@@ -45,7 +49,9 @@ class MatchViewModel @Inject constructor(
     private val matchDataRepository: MatchDataRepository,
     private val goalRepository: GoalRepository,
     private val yellowCardRepository: YellowCardRepository,
-    private val substitutionRepository: SubstitutionRepository
+    private val substitutionRepository: SubstitutionRepository,
+    private val matchNewsRepository: MatchNewsRepository,
+    private val newsRepository:  NewsRepository
 ) : ViewModel() {
 
     private val _leagues = MutableStateFlow<List<LeagueEntity>>(listOf())
@@ -64,12 +70,17 @@ class MatchViewModel @Inject constructor(
     private val goals = MutableStateFlow<List<GoalEntity>>(listOf())
     private val yellowCards = MutableStateFlow<List<YellowCardEntity>>(listOf())
     private val substitutions = MutableStateFlow<List<SubstitutionEntity>>(listOf())
+    private val matchNews = MutableStateFlow<List<MatchNewsEntity>>(listOf())
+    private val news = MutableStateFlow<List<NewsEntity>>(listOf())
 
     private val _uiComments = MutableStateFlow<List<CommentEntity>>(listOf())
     val uiComments = _uiComments.asStateFlow()
 
     private val _timelines = MutableStateFlow<List<Timeline>>(listOf())
     val timelines = _timelines.asStateFlow()
+
+    private val  _uiNews = MutableStateFlow<List<NewsEntity>>(listOf())
+    val uiNews = _uiNews.asStateFlow()
 
     private val currentMatchId = MutableStateFlow(0)
 
@@ -136,6 +147,17 @@ class MatchViewModel @Inject constructor(
             }
         }
 
+        viewModelScope.launch {
+            matchNewsRepository.getAllMatchNews().collect { matchNewsList ->
+                matchNews.value = matchNewsList
+            }
+        }
+
+        viewModelScope.launch {
+            newsRepository.getAllNews().collect { newsList ->
+                news.value = newsList
+            }
+        }
     }
 
     fun getAllUsers(): List<UserModel> {
@@ -215,6 +237,12 @@ class MatchViewModel @Inject constructor(
             timelineList.add(it.toTimeline())
         }
         _timelines.value = timelineList.sortedBy { it.time }
+
+        val newsList = mutableListOf<NewsEntity>()
+        matchNews.value.filter { it.matchId == matchId }.forEach { matchNews ->
+            newsList.add(news.value.find { it.remoteId == matchNews.newsId } ?: NewsEntity())
+        }
+        _uiNews.value = newsList
     }
 
     fun addComment(comment: CommentEntity) {

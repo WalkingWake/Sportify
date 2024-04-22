@@ -14,6 +14,8 @@ import dev.ptit.data.match.MatchDao
 import dev.ptit.data.match.MatchEntity
 import dev.ptit.data.matchdata.MatchDataDao
 import dev.ptit.data.matchdata.MatchDataEntity
+import dev.ptit.data.matchnewsmapping.MatchNewsDao
+import dev.ptit.data.matchnewsmapping.MatchNewsEntity
 import dev.ptit.data.news.NewsDao
 import dev.ptit.data.news.NewsEntity
 import dev.ptit.data.newstagmapping.NewsTagDao
@@ -40,7 +42,8 @@ import dev.ptit.data.yellowcard.YellowCardEntity
         MatchDataEntity::class,
         YellowCardEntity::class,
         GoalEntity::class,
-        SubstitutionEntity::class
+        SubstitutionEntity::class,
+        MatchNewsEntity::class
     ],
     version = 1,
     exportSchema = false
@@ -70,4 +73,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun goalDao(): GoalDao
 
     abstract fun substitutionDao(): SubstitutionDao
+
+    abstract fun matchNewsDao(): MatchNewsDao
 }

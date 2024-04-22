@@ -100,6 +100,12 @@ class MatchDetailFragment : Fragment() {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.uiNews.collect {
+                matchDetailAdapter.setNews(it)
+            }
+        }
+
         matchDetailAdapter.setUser(viewModel.getAllUsers())
     }
 

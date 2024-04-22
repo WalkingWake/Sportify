@@ -1,5 +1,6 @@
 package dev.ptit.ui.screen.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,11 +35,13 @@ class HomeViewModel @Inject constructor(
     private val _leagues = MutableStateFlow<List<LeagueEntity>>(listOf())
     val leagues = _leagues.asStateFlow()
 
-    private val _matches = MutableStateFlow<List<MatchEntity>>(listOf())
-    val matches = _matches.asStateFlow()
+    private val matches = MutableStateFlow<List<MatchEntity>>(listOf())
 
     private val _teams = MutableStateFlow<List<TeamEntity>>(listOf())
     val teams = _teams.asStateFlow()
+
+    private val _uiMatches = MutableStateFlow<List<MatchEntity>>(listOf())
+    val uiMatches = _uiMatches.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -55,7 +58,8 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
             matchRepository.getAllMatches().collect { matchList ->
-                _matches.update { matchList }
+                matches.update { matchList }
+                updateUIMatches()
             }
         }
 
@@ -65,5 +69,24 @@ class HomeViewModel @Inject constructor(
             }
         }
 
+    }
+
+    private fun updateUIMatches() {
+        _uiMatches.update {
+            matches.value
+        }
+    }
+
+    fun searchMatch(query: String) {
+        Log.d("TAG", "searchMatch: $query")
+        _uiMatches.update {
+            matches.value.filter {
+                getTeamNameById(it.team1Id).contains(query, true) || getTeamNameById(it.team2Id).contains(query, true)
+            }
+        }
+    }
+
+    private fun getTeamNameById(id: Int): String {
+        return teams.value.firstOrNull { it.remoteId == id }?.name ?: ""
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="83dp"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="8dp"
+    android:id="@+id/clLeagueItem"
     tools:ignore="ContentDescription, HardcodedText">
 
 

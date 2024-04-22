@@ -1,6 +1,5 @@
 package dev.ptit.ui.adapter.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,24 +17,30 @@ import dev.ptit.setup.extension.longToFormattedDate
 import dev.ptit.setup.utils.Utils
 
 class HomeAdapter(
-    private val onViewAllNewsClick : () -> Unit,
-    private val onViewAllLeaguesClick : () -> Unit,
-    private val onViewAllMatchesClick : () -> Unit
+    private val onViewAllNewsClick: () -> Unit,
+    private val onViewAllLeaguesClick: () -> Unit,
+    private val onViewAllMatchesClick: () -> Unit,
+    private val onNewsItemClick: (NewsEntity) -> Unit,
+    private val onLeagueClick: (LeagueEntity) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var leagueList = listOf<LeagueEntity>()
     private var newsList = listOf<NewsEntity>()
     private var matchList = listOf<MatchEntity>()
     private var teamsList = listOf<TeamEntity>()
+    private var isSearching = false
 
     inner class HomeHeaderViewHolder(private val binding: ItemRvHomeHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val leagueAdapter: LeagueAdapter = LeagueAdapter()
-        private val newsVPAdapter: NewsVPAdapter = NewsVPAdapter()
+        private val leagueAdapter: LeagueAdapter = LeagueAdapter {
+            onLeagueClick(it)
+        }
+        private val newsVPAdapter: NewsVPAdapter = NewsVPAdapter {
+            onNewsItemClick(it)
+        }
 
         fun bind() {
-
             binding.tvViewAllNews.setOnClickListener {
                 onViewAllNewsClick()
             }
@@ -77,14 +82,20 @@ class HomeAdapter(
             val team2 = getTeamById(matchEntity.team2Id)
             val league = getLeagueById(matchEntity.leagueId)
 
-            if(position == 0 || !Utils.checkSameDay(matchList[position - 1].startTime, matchEntity.startTime)) {
+            if (position == 0 || !Utils.checkSameDay(
+                    matchList[position - 1].startTime,
+                    matchEntity.startTime
+                )
+            ) {
                 binding.tvMatchDate.visibility = View.VISIBLE
-                binding.tvMatchDate.text = matchEntity.startTime.formattedDateToLong().longToFormattedDate("EE dd/MM")
+                binding.tvMatchDate.text =
+                    matchEntity.startTime.formattedDateToLong().longToFormattedDate("EE dd/MM")
             } else {
                 binding.tvMatchDate.visibility = View.GONE
             }
 
-            binding.tvMatchTime.text = matchEntity.startTime.formattedDateToLong().longToFormattedDate("HH:mm")
+            binding.tvMatchTime.text =
+                matchEntity.startTime.formattedDateToLong().longToFormattedDate("HH:mm")
 
             Glide.with(itemView.context)
                 .load(league?.logo)
@@ -129,18 +140,21 @@ class HomeAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 1 + matchList.size
+        return if(!isSearching) 1 + matchList.size else matchList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is HomeHeaderViewHolder -> holder.bind()
-            is MatchViewHolder -> holder.bind(matchList[position - 1], position - 1)
+            is MatchViewHolder -> holder.bind(
+                matchList[if (!isSearching) position - 1 else position],
+                if (!isSearching) position - 1 else position
+            )
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) {
+        return if (position == 0 && !isSearching) {
             HomeViewType.HEADER.type
         } else {
             HomeViewType.MATCH.type
@@ -175,4 +189,10 @@ class HomeAdapter(
     private fun getLeagueById(id: Int): LeagueEntity? {
         return leagueList.find { it.remoteId == id }
     }
+
+    fun setIsSearching(isSearching: Boolean) {
+        this.isSearching = isSearching
+        notifyDataSetChanged()
+    }
+
 }

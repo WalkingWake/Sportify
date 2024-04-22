@@ -20,6 +20,8 @@ import dev.ptit.data.match.MatchDao
 import dev.ptit.data.match.MatchRepository
 import dev.ptit.data.matchdata.MatchDataDao
 import dev.ptit.data.matchdata.MatchDataRepository
+import dev.ptit.data.matchnewsmapping.MatchNewsDao
+import dev.ptit.data.matchnewsmapping.MatchNewsRepository
 import dev.ptit.data.news.NewsDao
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.newstagmapping.NewsTagDao
@@ -167,5 +169,15 @@ object DatabaseModule {
     @Singleton
     fun provideGoalRepository(goalDao: GoalDao): GoalRepository {
         return GoalRepository(goalDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMatchNewsDao(database: AppDatabase) = database.matchNewsDao()
+
+    @Provides
+    @Singleton
+    fun provideMatchNewsRepository(matchNewsDao: MatchNewsDao): MatchNewsRepository {
+        return MatchNewsRepository(matchNewsDao)
     }
 }

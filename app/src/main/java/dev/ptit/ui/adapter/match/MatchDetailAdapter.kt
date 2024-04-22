@@ -8,6 +8,7 @@ import android.widget.ListView
 import androidx.recyclerview.widget.RecyclerView
 import dev.ptit.data.comments.CommentEntity
 import dev.ptit.data.matchdata.MatchDataEntity
+import dev.ptit.data.news.NewsEntity
 import dev.ptit.data.news.NewsRepository
 import dev.ptit.data.user.UserModel
 import dev.ptit.databinding.ItemVpCommentMatchBinding
@@ -25,6 +26,8 @@ class MatchDetailAdapter(
     private val commentAdapter = CommentAdapter()
     private var matchData: MatchDataEntity = MatchDataEntity()
     private val timelineAdapter = TimelineAdapter()
+    private val newsAdapter = NewsRVAdapter {}
+
 
     inner class TimelineViewHolder(private val binding: ItemVpTimelineMatchBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -66,11 +69,7 @@ class MatchDetailAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
 
-            binding.rvNews.adapter = NewsRVAdapter {}.apply {
-            }
-
-
-
+            binding.rvNews.adapter = newsAdapter
         }
     }
 
@@ -159,6 +158,11 @@ class MatchDetailAdapter(
 
     fun setTimeline(timeline: List<Timeline>) {
         timelineAdapter.setTimeline(timeline)
+        notifyDataSetChanged()
+    }
+
+    fun setNews(news: List<NewsEntity>) {
+        newsAdapter.setList(news)
         notifyDataSetChanged()
     }
 }
